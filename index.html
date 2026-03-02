@@ -136,7 +136,20 @@ button{
   font-size: 20px;
   font-weight: bold;
 }
+#clientTable th,
+#clientTable td {
+  padding: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: white;
+}
 
+#clientTable th {
+  font-weight: 600;
+}
+
+#clientTable tr:hover {
+  background: rgba(255,255,255,0.05);
+}
 </style>
 </head>
 <body>
@@ -720,6 +733,7 @@ function loadClients(){
 </script>
 </body>
 </html>
+
 
 
 
