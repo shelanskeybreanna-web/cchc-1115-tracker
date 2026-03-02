@@ -666,6 +666,7 @@ function loadClients(){
 
     snapshot.forEach((doc)=>{
       const data = doc.data();
+      console.log("Client record:", data);
 
       navCounts[data.navigator] = (navCounts[data.navigator] || 0) + 1;
 
@@ -719,6 +720,7 @@ function loadClients(){
 </script>
 </body>
 </html>
+
 
 
 
