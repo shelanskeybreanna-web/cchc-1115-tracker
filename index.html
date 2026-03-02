@@ -169,8 +169,16 @@ onAuthStateChanged(auth, (user)=>{
 });
 
 window.showTab = function(tabId){
-  document.querySelectorAll(".tabSection").forEach(s=>s.classList.remove("active"));
-  document.getElementById(tabId).classList.add("active");
+
+  document.querySelectorAll(".tabSection")
+    .forEach(s => s.classList.remove("active"));
+
+  const selectedTab = document.getElementById(tabId);
+
+  if(selectedTab){
+    selectedTab.classList.add("active");
+  }
+
 };
 
 function loadClients(){
@@ -217,6 +225,7 @@ function loadClients(){
 </script>
 </body>
 </html>
+
 
 
 
