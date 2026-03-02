@@ -459,7 +459,7 @@ onAuthStateChanged(auth, async (user)=>{
       "Logged in as: " + user.email;
 
     loadClients();          // call ONCE
-    showTab('dashboardTab');
+    showTab('listTab');
 
   } else {
     document.getElementById("loginSection").classList.remove("hidden");
@@ -719,6 +719,7 @@ function loadClients(){
 </script>
 </body>
 </html>
+
 
 
 
