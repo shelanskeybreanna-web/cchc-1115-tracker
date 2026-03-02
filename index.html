@@ -441,7 +441,6 @@ onAuthStateChanged(auth, async (user)=>{
   if(user){
     document.getElementById("loginSection").classList.add("hidden");
     document.getElementById("appSection").classList.remove("hidden");
-loadDashboard();
 loadClients();
 document.getElementById("roleDisplay").innerText = 
   "Logged in as: " + user.email;
@@ -708,4 +707,5 @@ const row = `
 </script>
 </body>
 </html>
+
 
