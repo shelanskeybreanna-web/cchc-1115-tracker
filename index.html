@@ -653,7 +653,7 @@ function loadClients(){
   const tableBody = document.getElementById("clientTableBody");
   const navCounts = {};
 
-  onSnapshot(collection(db,"clients"),(snapshot)=>{
+  onSnapshot(collection(db,"clients"), (snapshot)=>{
 
     tableBody.innerHTML = "";
 
@@ -664,9 +664,9 @@ function loadClients(){
 
       const row = `
         <tr>
-          <td>${data.client}</td>
-          <td>${data.navigator}</td>
-          <td>${data.status}</td>
+          <td>${data.client || ""}</td>
+          <td>${data.navigator || ""}</td>
+          <td>${data.status || ""}</td>
           <td>${(data.eligibilityUnits || 0) + (data.serviceUnits || 0)}</td>
           <td>${
             (data.services || [])
@@ -683,7 +683,28 @@ function loadClients(){
       tableBody.innerHTML += row;
     });
 
-    // Chart temporarily disabled for debugging
+    const ctx = document.getElementById("navChart");
+
+    if(window.navChartInstance){
+      window.navChartInstance.destroy();
+    }
+
+    window.navChartInstance = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: Object.keys(navCounts),
+        datasets: [{
+          label: "Clients per Navigator",
+          data: Object.values(navCounts)
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
 
   });
 
@@ -691,6 +712,7 @@ function loadClients(){
 </script>
 </body>
 </html>
+
 
 
 
