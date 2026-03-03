@@ -127,78 +127,101 @@ button{
   <div class="card">
     <h3>Client Entry</h3>
 
-    <div class="entry-grid">
+  <div class="entry-grid">
 
-      <div>
-        <label>Client Name</label>
-        <input id="clientName" style="width:100%;padding:8px;">
-      </div>
+  <!-- LEFT COLUMN -->
+  <div>
+    <label>Client Name</label>
+    <input id="clientName" style="width:100%;padding:8px;">
+  </div>
 
-      <div>
-        <label>Status</label>
-        <select id="status" style="width:100%;padding:8px;">
-          <option>Open</option>
-          <option>Closed</option>
-        </select>
-      </div>
+  <div>
+    <label>Status</label>
+    <select id="status" style="width:100%;padding:8px;">
+      <option>Open</option>
+      <option>Closed</option>
+    </select>
+  </div>
 
-      <div>
-        <label>Navigator</label>
-        <select id="navigator" style="width:100%;padding:8px;">
-          <option>Breanna Shelanskey</option>
-          <option>Kylie Miles</option>
-          <option>Alexandra Dieffenbacher</option>
-          <option>Laurie Davis</option>
-          <option>Shauna Cone</option>
-        </select>
-      </div>
+  <div>
+    <label>Navigator</label>
+    <select id="navigator" style="width:100%;padding:8px;">
+      <option>Breanna Shelanskey</option>
+      <option>Kylie Miles</option>
+      <option>Alexandra Dieffenbacher</option>
+      <option>Laurie Davis</option>
+      <option>Shauna Cone</option>
+    </select>
+  </div>
 
-      <div>
-        <label>Eligibility Units</label>
-        <input type="number" id="eligibilityUnits" oninput="calculateTotals()" style="width:100%;padding:8px;">
-        <div id="eligibilityTotal">$0.00</div>
-      </div>
+  <div>
+    <label>Eligibility Units</label>
+    <input type="number" id="eligibilityUnits" oninput="calculateTotals()" style="width:100%;padding:8px;">
+    <div id="eligibilityTotal">$0.00</div>
+  </div>
 
-      <div>
-        <label>Service Units</label>
-        <input type="number" id="serviceUnits" oninput="calculateTotals()" style="width:100%;padding:8px;">
-        <div id="serviceTotal">$0.00</div>
-      </div>
+  <div>
+    <label>Service Units</label>
+    <input type="number" id="serviceUnits" oninput="calculateTotals()" style="width:100%;padding:8px;">
+    <div id="serviceTotal">$0.00</div>
+  </div>
 
-      <div class="entry-full">
-        <div class="total-box">
-          Navigation Total: <span id="navigationTotal">$0.00</span>
-        </div>
-      </div>
-
-      <div class="entry-full">
-        <h4>Support Services</h4>
-
-        <div class="service-row">
-          <div><input type="checkbox" class="svcCheck" value="Rent"> Rent</div>
-          <input type="number" class="svcAmount" oninput="calculateTotals()">
-        </div>
-
-        <div class="service-row">
-          <div><input type="checkbox" class="svcCheck" value="Utilities"> Utilities</div>
-          <input type="number" class="svcAmount" oninput="calculateTotals()">
-        </div>
-
-        <div class="service-row">
-          <div><input type="checkbox" class="svcCheck" value="Microwave"> Microwave</div>
-          <input type="number" class="svcAmount" oninput="calculateTotals()">
-        </div>
-
-        <div class="total-box">
-          Support Total: <span id="supportTotal">$0.00</span>
-        </div>
-
-        <div class="grand-box">
-          Grand Total: <span id="grandTotal">$0.00</span>
-        </div>
-      </div>
-
+  <!-- FULL WIDTH TOTAL -->
+  <div class="entry-full">
+    <div class="total-box">
+      Navigation Total: <span id="navigationTotal">$0.00</span>
     </div>
+  </div>
+
+  <!-- SUPPORT SERVICES FULL WIDTH -->
+  <div class="entry-full">
+    <h4>Support Services</h4>
+
+    <div class="service-row">
+      <div><input type="checkbox" class="svcCheck" value="Rent"> Rent</div>
+      <input type="number" class="svcAmount" oninput="calculateTotals()">
+    </div>
+
+    <div class="service-row">
+      <div><input type="checkbox" class="svcCheck" value="Utilities"> Utilities</div>
+      <input type="number" class="svcAmount" oninput="calculateTotals()">
+    </div>
+
+    <div class="service-row">
+      <div><input type="checkbox" class="svcCheck" value="Microwave"> Microwave</div>
+      <input type="number" class="svcAmount" oninput="calculateTotals()">
+    </div>
+
+    <div class="service-row">
+      <div><input type="checkbox" class="svcCheck" value="Fridge"> Fridge</div>
+      <input type="number" class="svcAmount" oninput="calculateTotals()">
+    </div>
+
+    <div class="service-row">
+      <div><input type="checkbox" class="svcCheck" value="Pre-Tenancy"> Pre-Tenancy</div>
+      <input type="number" class="svcAmount" oninput="calculateTotals()">
+    </div>
+
+    <div class="service-row">
+      <div><input type="checkbox" class="svcCheck" value="Nutrition"> Nutrition</div>
+      <input type="number" class="svcAmount" oninput="calculateTotals()">
+    </div>
+
+    <div class="service-row">
+      <div><input type="checkbox" class="svcCheck" value="Follow Up"> Follow Up</div>
+      <input type="number" class="svcAmount" oninput="calculateTotals()">
+    </div>
+
+    <div class="total-box">
+      Support Total: <span id="supportTotal">$0.00</span>
+    </div>
+
+    <div class="grand-box">
+      Grand Total: <span id="grandTotal">$0.00</span>
+    </div>
+  </div>
+
+</div>
 
     <button onclick="saveClient()">Save Client</button>
 
@@ -390,6 +413,7 @@ function loadClients(){
 </script>
 </body>
 </html>
+
 
 
 
