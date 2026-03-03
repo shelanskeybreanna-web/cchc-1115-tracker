@@ -122,8 +122,8 @@ button{
     <canvas id="navChart"></canvas>
   </div>
 </div>
-    
- <div id="entryTab" class="tabSection">
+
+<div id="entryTab" class="tabSection">
   <div class="card">
     <h3>Client Entry</h3>
 
@@ -151,37 +151,6 @@ button{
           <option>Laurie Davis</option>
           <option>Shauna Cone</option>
         </select>
-      </div>
-
-      <div>
-        <label>Medicaid Type</label>
-        <select id="medicaid" style="width:100%;padding:8px;">
-          <option>MCO</option>
-          <option>Fee for Service</option>
-          <option>Not in Enhanced Population</option>
-          <option>No Needs</option>
-        </select>
-      </div>
-
-      <div>
-        <label>Medicaid Level</label>
-        <select id="medicaidLevel" style="width:100%;padding:8px;">
-          <option value="">Select Level</option>
-          <option>Level 1 MCO</option>
-          <option>Level 2 MCO</option>
-          <option>Level 1 FFS</option>
-          <option>Level 2 FFS</option>
-        </select>
-      </div>
-
-      <div>
-        <label>Eligibility Date</label>
-        <input type="date" id="eligibilityDate" style="width:100%;padding:8px;">
-      </div>
-
-      <div>
-        <label>Follow Up Date</label>
-        <input type="date" id="followUpDate" style="width:100%;padding:8px;">
       </div>
 
       <div>
@@ -216,27 +185,7 @@ button{
         </div>
 
         <div class="service-row">
-          <div><input type="checkbox" class="svcCheck" value="Pre-Tenancy"> Pre-Tenancy</div>
-          <input type="number" class="svcAmount" oninput="calculateTotals()">
-        </div>
-
-        <div class="service-row">
           <div><input type="checkbox" class="svcCheck" value="Microwave"> Microwave</div>
-          <input type="number" class="svcAmount" oninput="calculateTotals()">
-        </div>
-
-        <div class="service-row">
-          <div><input type="checkbox" class="svcCheck" value="Fridge"> Fridge</div>
-          <input type="number" class="svcAmount" oninput="calculateTotals()">
-        </div>
-
-        <div class="service-row">
-          <div><input type="checkbox" class="svcCheck" value="Nutrition"> Nutrition</div>
-          <input type="number" class="svcAmount" oninput="calculateTotals()">
-        </div>
-
-        <div class="service-row">
-          <div><input type="checkbox" class="svcCheck" value="Follow Up"> Follow Up</div>
           <input type="number" class="svcAmount" oninput="calculateTotals()">
         </div>
 
@@ -255,7 +204,8 @@ button{
 
   </div>
 </div>
- <div id="listTab" class="tabSection">
+
+<div id="listTab" class="tabSection">
   <div class="card">
     <h3>Client List</h3>
     <table id="clientTable" style="width:100%;border-collapse:collapse;">
@@ -440,6 +390,7 @@ function loadClients(){
 </script>
 </body>
 </html>
+
 
 
 
