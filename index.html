@@ -109,7 +109,13 @@ button{
     </select><br><br>
 
     <label>Medicaid Level</label><br>
-    <input id="medicaidLevel" style="width:100%;padding:8px;"><br><br>
+<select id="medicaidLevel" style="width:100%;padding:8px;">
+  <option value="">Select Level</option>
+  <option>Level 1 MCO</option>
+  <option>Level 2 MCO</option>
+  <option>Level 1 FFS</option>
+  <option>Level 2 FFS</option>
+</select><br><br>
 
     <label>Eligibility Date</label><br>
     <input type="date" id="eligibilityDate" style="width:100%;padding:8px;"><br><br>
@@ -389,6 +395,7 @@ function loadClients(){
 </script>
 </body>
 </html>
+
 
 
 
