@@ -158,7 +158,36 @@ input, select {
       <option>Shauna Cone</option>
     </select>
   </div>
+<div>
+  <label>Medicaid Type</label>
+  <select id="medicaid" style="width:100%;padding:8px;">
+    <option>MCO</option>
+    <option>Fee for Service</option>
+    <option>Not in Enhanced Population</option>
+    <option>No Needs</option>
+  </select>
+</div>
 
+<div>
+  <label>Medicaid Level</label>
+  <select id="medicaidLevel" style="width:100%;padding:8px;">
+    <option value="">Select Level</option>
+    <option>Level 1 MCO</option>
+    <option>Level 2 MCO</option>
+    <option>Level 1 FFS</option>
+    <option>Level 2 FFS</option>
+  </select>
+</div>
+
+<div>
+  <label>Eligibility Date</label>
+  <input type="date" id="eligibilityDate" style="width:100%;padding:8px;">
+</div>
+
+<div>
+  <label>Follow Up Date</label>
+  <input type="date" id="followUpDate" style="width:100%;padding:8px;">
+</div>
   <div>
     <label>Eligibility Units</label>
     <input type="number" id="eligibilityUnits" oninput="calculateTotals()" style="width:100%;padding:8px;">
@@ -418,6 +447,7 @@ function loadClients(){
 </script>
 </body>
 </html>
+
 
 
 
