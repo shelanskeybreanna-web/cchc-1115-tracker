@@ -427,13 +427,29 @@ function loadClients(){
       navCounts[data.navigator] =
         (navCounts[data.navigator] || 0) + 1;
 
-      tableBody.innerHTML += `
-        <tr>
-          <td>${data.client || ""}</td>
-          <td>${data.navigator || ""}</td>
-          <td>${data.status || ""}</td>
-        </tr>
-      `;
+     const totalUnits = (data.eligibilityUnits || 0) + (data.serviceUnits || 0);
+
+const servicesList = (data.services || [])
+  .map(s => `${s.name} ($${s.amount})`)
+  .join(", ");
+
+tableBody.innerHTML += `
+  <tr>
+    <td>${data.client || ""}</td>
+    <td>${data.navigator || ""}</td>
+    <td>${data.status || ""}</td>
+    <td>${data.medicaid || ""}</td>
+    <td>${data.medicaidLevel || ""}</td>
+    <td>${data.eligibilityDate || ""}</td>
+    <td>${data.followUpDate || ""}</td>
+    <td>${totalUnits}</td>
+    <td>${servicesList}</td>
+    <td>
+      <button onclick="editClient('${doc.id}')">Edit</button>
+      <button onclick="deleteClient('${doc.id}')">Delete</button>
+    </td>
+  </tr>
+`;
     });
 
     const ctx = document.getElementById("navChart");
@@ -458,6 +474,7 @@ function loadClients(){
 </script>
 </body>
 </html>
+
 
 
 
