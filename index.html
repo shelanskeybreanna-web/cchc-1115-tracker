@@ -366,7 +366,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+window.login = async function(){
 
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try{
+
+    await signInWithEmailAndPassword(auth,email,password);
+
+  }catch(err){
+
+    document.getElementById("loginError").innerText = err.message;
+
+  }
+
+};
   window.calculateTotals = function(){
 
   const rate = 17.50;
@@ -687,6 +702,7 @@ navSelect.innerHTML += `<option>${v}</option>`;
 </script>
 </body>
 </html>
+
 
 
 
