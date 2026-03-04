@@ -564,49 +564,53 @@ window.showTab = function(tabId){
 
 };
 
-**function loadClients(){
+function loadClients(){
+
   const tableBody = document.getElementById("clientTableBody");
   const navCounts = {};
 
   onSnapshot(collection(db,"clients"), (snapshot)=>{
+
     tableBody.innerHTML = "";
 
     snapshot.forEach((doc)=>{
+
       const data = doc.data();
 
       navCounts[data.navigator] =
         (navCounts[data.navigator] || 0) + 1;
 
-     const totalUnits = (data.eligibilityUnits || 0) + (data.serviceUnits || 0);
+      const totalUnits =
+        (data.eligibilityUnits || 0) +
+        (data.serviceUnits || 0);
 
-const servicesList = (data.services || [])
-  .map(s => `${s.name} ($${s.amount})`)
-  .join(", ");
+      const servicesList = (data.services || [])
+        .map(s => `${s.name} ($${s.amount})`)
+        .join(", ");
 
-tableBody.innerHTML += `
-  <tr>
-    <td>${data.client || ""}</td>
-    <td>${data.navigator || ""}</td>
-    <td>${data.status || ""}</td>
-    <td>${data.medicaid || ""}</td>
-    <td>${data.medicaidLevel || ""}</td>
-    <td>${data.eligibilityDate || ""}</td>
-    <td>${data.followUpDate || ""}</td>
-    <td>${totalUnits}</td>
-    <td>${servicesList}</td>
-    <td>
-      <button onclick="editClient('${doc.id}')">Edit</button>
-      <button onclick="deleteClient('${doc.id}')">Delete</button>
-    </td>
-  </tr>
-`;
+      tableBody.innerHTML += `
+      <tr>
+        <td>${data.client || ""}</td>
+        <td>${data.navigator || ""}</td>
+        <td>${data.status || ""}</td>
+        <td>${data.medicaid || ""}</td>
+        <td>${data.medicaidLevel || ""}</td>
+        <td>${data.eligibilityDate || ""}</td>
+        <td>${data.followUpDate || ""}</td>
+        <td>${totalUnits}</td>
+        <td>${servicesList}</td>
+        <td>
+          <button onclick="editClient('${doc.id}')">Edit</button>
+          <button onclick="deleteClient('${doc.id}')">Delete</button>
+        </td>
+      </tr>
+      `;
     });
-  
-    setTimeout(populateFilters, 100);
 
-  });
-}
+    populateFilters();
+
     const ctx = document.getElementById("navChart");
+
     if(window.navChartInstance){
       window.navChartInstance.destroy();
     }
@@ -624,6 +628,7 @@ tableBody.innerHTML += `
     });
 
   });
+
 }
   window.filterTable = function(){
 
@@ -682,6 +687,7 @@ navSelect.innerHTML += `<option>${v}</option>`;
 </script>
 </body>
 </html>
+
 
 
 
