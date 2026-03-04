@@ -680,7 +680,18 @@ function loadClients(){
       const units =
         (data.eligibilityUnits || 0) +
         (data.serviceUnits || 0);
+const month =
+(data.eligibilityDate || "").substring(0,7);
 
+if(month){
+
+if(!monthlyRevenue[month]){
+monthlyRevenue[month] = 0;
+}
+
+monthlyRevenue[month] += units * 17.5;
+
+}
       totalUnits += units;
 
       totalRevenue += units * 17.5;
@@ -881,6 +892,7 @@ pdf.save("CCHC_1115_Report.pdf");
 </script>
 </body>
 </html>
+
 
 
 
