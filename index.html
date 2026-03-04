@@ -691,6 +691,10 @@ totalRevenue += units * 17.5;
     });
 
     populateFilters();
+    document.getElementById("totalClients").innerText = totalClients;
+document.getElementById("totalUnits").innerText = totalUnits;
+document.getElementById("totalRevenue").innerText =
+  "$" + totalRevenue.toFixed(2);
 
     const ctx = document.getElementById("navChart");
 
@@ -770,6 +774,7 @@ navSelect.innerHTML += `<option>${v}</option>`;
 </script>
 </body>
 </html>
+
 
 
 
