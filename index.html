@@ -621,9 +621,39 @@ tableBody.innerHTML += `
 
   });
 }
+  window.filterTable = function(){
+
+const clientFilter = document.getElementById("filterClient").value;
+const navFilter = document.getElementById("filterNavigator").value;
+const statusFilter = document.getElementById("filterStatus").value;
+const medicaidFilter = document.getElementById("filterMedicaid").value;
+const levelFilter = document.getElementById("filterLevel").value;
+
+document.querySelectorAll("#clientTableBody tr").forEach(row=>{
+
+const client = row.children[0].innerText;
+const navigator = row.children[1].innerText;
+const status = row.children[2].innerText;
+const medicaid = row.children[3].innerText;
+const level = row.children[4].innerText;
+
+let show = true;
+
+if(clientFilter && client !== clientFilter) show = false;
+if(navFilter && navigator !== navFilter) show = false;
+if(statusFilter && status !== statusFilter) show = false;
+if(medicaidFilter && medicaid !== medicaidFilter) show = false;
+if(levelFilter && level !== levelFilter) show = false;
+
+row.style.display = show ? "" : "none";
+
+});
+
+};
 </script>
 </body>
 </html>
+
 
 
 
