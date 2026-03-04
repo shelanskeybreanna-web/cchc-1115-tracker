@@ -796,7 +796,86 @@ window.revenueChartInstance = new Chart(revenueCtx,{
 });
 }
 
-  
+  /* SERVICE CHART */
+
+const serviceCtx =
+document.getElementById("serviceChart");
+
+if(window.serviceChartInstance){
+window.serviceChartInstance.destroy();
+}
+
+window.serviceChartInstance =
+new Chart(serviceCtx,{
+type:"pie",
+data:{
+labels:Object.keys(serviceRevenue),
+datasets:[{
+data:Object.values(serviceRevenue)
+}]
+}
+});
+
+/* STATUS CHART */
+
+const statusCtx =
+document.getElementById("statusChart");
+
+if(window.statusChartInstance){
+window.statusChartInstance.destroy();
+}
+
+window.statusChartInstance =
+new Chart(statusCtx,{
+type:"doughnut",
+data:{
+labels:Object.keys(statusCounts),
+datasets:[{
+data:Object.values(statusCounts)
+}]
+}
+});
+
+/* MONTHLY CHART */
+
+const monthlyCtx =
+document.getElementById("monthlyChart");
+
+if(window.monthlyChartInstance){
+window.monthlyChartInstance.destroy();
+}
+
+window.monthlyChartInstance =
+new Chart(monthlyCtx,{
+type:"line",
+data:{
+labels:Object.keys(monthlyRevenue),
+datasets:[{
+label:"Monthly Revenue",
+data:Object.values(monthlyRevenue)
+}]
+}
+});
+
+/* NAVIGATOR LEADERBOARD */
+
+const leaderboard =
+Object.entries(navRevenue)
+.sort((a,b)=>b[1]-a[1]);
+
+let html = "";
+
+leaderboard.forEach((nav,i)=>{
+
+html += `
+<div style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.1)">
+${i+1}. ${nav[0]} - $${nav[1].toFixed(2)}
+</div>
+`;
+
+});
+
+document.getElementById("leaderboard").innerHTML = html;
   window.filterTable = function(){
 
 const clientFilter = document.getElementById("filterClient").value;
@@ -888,10 +967,26 @@ pdf.addImage(revImage,"PNG",20,30,170,70);
 pdf.save("CCHC_1115_Report.pdf");
 
 };
+
+  window.exportExcel = function(){
+
+const table =
+document.getElementById("clientTable");
+
+const workbook =
+XLSX.utils.table_to_book(table,{
+sheet:"Clients"
+});
+
+XLSX.writeFile(workbook,
+"CCHC_Clients.xlsx");
+
+};
   
 </script>
 </body>
 </html>
+
 
 
 
