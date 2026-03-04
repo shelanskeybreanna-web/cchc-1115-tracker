@@ -634,7 +634,10 @@ window.showTab = function(tabId){
 function loadClients(){
 
   const tableBody = document.getElementById("clientTableBody");
-  const navCounts = {};
+ const navCounts = {};
+let totalClients = 0;
+let totalUnits = 0;
+let totalRevenue = 0;
 
   onSnapshot(collection(db,"clients"), (snapshot)=>{
 
@@ -754,6 +757,7 @@ navSelect.innerHTML += `<option>${v}</option>`;
 </script>
 </body>
 </html>
+
 
 
 
