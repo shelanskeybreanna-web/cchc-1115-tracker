@@ -631,13 +631,14 @@ window.showTab = function(tabId){
 
 };
 
-Function loadClients(){
+function loadClients(){
 
   const tableBody = document.getElementById("clientTableBody");
- const navCounts = {};
-let totalClients = 0;
-let totalUnits = 0;
-let totalRevenue = 0;
+  const navCounts = {};
+
+  let totalClients = 0;
+  let totalUnits = 0;
+  let totalRevenue = 0;
 
   onSnapshot(collection(db,"clients"), (snapshot)=>{
 
@@ -646,26 +647,23 @@ let totalRevenue = 0;
     snapshot.forEach((doc)=>{
 
       const data = doc.data();
+
       totalClients++;
 
-const units =
-  (data.eligibilityUnits || 0) +
-  (data.serviceUnits || 0);
+      const units =
+        (data.eligibilityUnits || 0) +
+        (data.serviceUnits || 0);
 
-totalUnits += units;
+      totalUnits += units;
 
-totalRevenue += units * 17.5;
+      totalRevenue += units * 17.5;
 
-(data.services || []).forEach(s=>{
-  totalRevenue += Number(s.amount || 0);
-});
+      (data.services || []).forEach(s=>{
+        totalRevenue += Number(s.amount || 0);
+      });
 
       navCounts[data.navigator] =
         (navCounts[data.navigator] || 0) + 1;
-
-    const rowUnits =
-  (data.eligibilityUnits || 0) +
-  (data.serviceUnits || 0);
 
       const servicesList = (data.services || [])
         .map(s => `${s.name} ($${s.amount})`)
@@ -680,7 +678,7 @@ totalRevenue += units * 17.5;
         <td>${data.medicaidLevel || ""}</td>
         <td>${data.eligibilityDate || ""}</td>
         <td>${data.followUpDate || ""}</td>
-        <td>${rowUnits}</td>
+        <td>${units}</td>
         <td>${servicesList}</td>
         <td>
           <button onclick="editClient('${doc.id}')">Edit</button>
@@ -691,10 +689,11 @@ totalRevenue += units * 17.5;
     });
 
     populateFilters();
+
     document.getElementById("totalClients").innerText = totalClients;
-document.getElementById("totalUnits").innerText = totalUnits;
-document.getElementById("totalRevenue").innerText =
-  "$" + totalRevenue.toFixed(2);
+    document.getElementById("totalUnits").innerText = totalUnits;
+    document.getElementById("totalRevenue").innerText =
+      "$" + totalRevenue.toFixed(2);
 
     const ctx = document.getElementById("navChart");
 
@@ -774,6 +773,7 @@ navSelect.innerHTML += `<option>${v}</option>`;
 </script>
 </body>
 </html>
+
 
 
 
