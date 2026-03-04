@@ -691,6 +691,10 @@ function loadClients(){
 
       navCounts[data.navigator] =
         (navCounts[data.navigator] || 0) + 1;
+   const statusName = data.status || "Unknown";
+
+statusCounts[statusName] =
+(statusCounts[statusName] || 0) + 1;
       const navigatorName = data.navigator || "Unknown";
 
 if(!navRevenue[navigatorName]){
@@ -877,6 +881,7 @@ pdf.save("CCHC_1115_Report.pdf");
 </script>
 </body>
 </html>
+
 
 
 
