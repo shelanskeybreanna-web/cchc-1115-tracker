@@ -454,6 +454,26 @@ window.editClient = async function(id){
 
   showTab("entryTab");
 };
+  window.deleteClient = async function(id){
+
+  const confirmDelete = confirm("Delete this client?");
+
+  if(!confirmDelete) return;
+
+  try{
+
+    await deleteDoc(doc(db,"clients",id));
+
+    alert("Client deleted successfully.");
+
+  }catch(err){
+
+    console.error("Delete error:", err);
+    alert("Error deleting client.");
+
+  }
+
+};
 window.login = async function(){
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -553,6 +573,7 @@ tableBody.innerHTML += `
 </script>
 </body>
 </html>
+
 
 
 
