@@ -296,7 +296,11 @@ import {
   getFirestore, 
   collection, 
   onSnapshot,
-  addDoc 
+  addDoc,
+  doc,
+  deleteDoc,
+  updateDoc,
+  getDoc
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -474,6 +478,7 @@ tableBody.innerHTML += `
 </script>
 </body>
 </html>
+
 
 
 
