@@ -392,511 +392,346 @@ Export Client List
     </table>
   </div>
 </div>
+  
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut }
 from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-import { 
-  getFirestore, 
-  collection, 
-  onSnapshot,
-  addDoc,
-  doc,
-  deleteDoc,
-  updateDoc,
-  getDoc
+import {
+getFirestore,
+collection,
+onSnapshot,
+addDoc,
+doc,
+deleteDoc,
+updateDoc,
+getDoc
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDecMHTDApBmGLVpS9AmyiRkQhShmUZ6dE",
-  authDomain: "cchc-1115-tracker.firebaseapp.com",
-  projectId: "cchc-1115-tracker",
-  storageBucket: "cchc-1115-tracker.firebasestorage.app",
-  messagingSenderId: "865542493195",
-  appId: "1:865542493195:web:ef8e16e1449d35b4f1630e"
+apiKey: "AIzaSyDecMHTDApBmGLVpS9AmyiRkQhShmUZ6dE",
+authDomain: "cchc-1115-tracker.firebaseapp.com",
+projectId: "cchc-1115-tracker",
+storageBucket: "cchc-1115-tracker.firebasestorage.app",
+messagingSenderId: "865542493195",
+appId: "1:865542493195:web:ef8e16e1449d35b4f1630e"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+
+let clientsData = [];
+
 window.login = async function(){
 
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
 
-  try{
-
-    await signInWithEmailAndPassword(auth,email,password);
-
-  }catch(err){
-
-    document.getElementById("loginError").innerText = err.message;
-
-  }
+try{
+await signInWithEmailAndPassword(auth,email,password);
+}catch(err){
+document.getElementById("loginError").innerText = err.message;
+}
 
 };
-  window.calculateTotals = function(){
 
-  const rate = 17.50;
-
-  const eligibilityUnits = Number(document.getElementById("eligibilityUnits").value || 0);
-  const serviceUnits = Number(document.getElementById("serviceUnits").value || 0);
-
-  const eligibilityAmount = eligibilityUnits * rate;
-  const serviceAmount = serviceUnits * rate;
-
-  const navigationTotal = eligibilityAmount + serviceAmount;
-
-  let supportTotal = 0;
-
-  document.querySelectorAll(".svcAmount").forEach(input=>{
-    supportTotal += Number(input.value || 0);
-  });
-
-  const grandTotal = navigationTotal + supportTotal;
-
-  document.getElementById("eligibilityTotal").innerText = "$" + eligibilityAmount.toFixed(2);
-  document.getElementById("serviceTotal").innerText = "$" + serviceAmount.toFixed(2);
-  document.getElementById("navigationTotal").innerText = "$" + navigationTotal.toFixed(2);
-  document.getElementById("supportTotal").innerText = "$" + supportTotal.toFixed(2);
-  document.getElementById("grandTotal").innerText = "$" + grandTotal.toFixed(2);
+window.logout = function(){
+signOut(auth);
 };
- 
-window.saveClient = async function(){
 
-  const clientName = document.getElementById("clientName").value;
-  const status = document.getElementById("status").value;
-  const navigator = document.getElementById("navigator").value;
-  const eligibilityUnits = Number(document.getElementById("eligibilityUnits").value || 0);
-  const serviceUnits = Number(document.getElementById("serviceUnits").value || 0);
+onAuthStateChanged(auth,(user)=>{
 
-  const services = [];
+if(user){
+document.getElementById("loginSection").classList.add("hidden");
+document.getElementById("appSection").classList.remove("hidden");
+document.getElementById("roleDisplay").innerText = "Logged in as: "+user.email;
+loadClients();
+showTab("dashboardTab");
+}else{
+document.getElementById("loginSection").classList.remove("hidden");
+document.getElementById("appSection").classList.add("hidden");
+}
 
-  document.querySelectorAll(".svcCheck").forEach((checkbox, index)=>{
-    if(checkbox.checked){
-      const amount = document.querySelectorAll(".svcAmount")[index].value || 0;
+});
 
-      services.push({
-        name: checkbox.value,
-        amount: Number(amount)
-      });
-    }
-  });
+window.showTab=function(tab){
 
-  if(!clientName){
-    alert("Please enter a client name.");
-    return;
-  }
+document.querySelectorAll(".tabSection").forEach(t=>{
+t.classList.remove("active");
+});
 
-  try{
+document.getElementById(tab).classList.add("active");
 
-    if(window.editingId){
+};
 
-      await updateDoc(doc(db,"clients",window.editingId),{
-        client: clientName,
-        status: status,
-        navigator: navigator,
-        medicaid: document.getElementById("medicaid").value,
-        medicaidLevel: document.getElementById("medicaidLevel").value,
-        eligibilityDate: document.getElementById("eligibilityDate").value,
-        followUpDate: document.getElementById("followUpDate").value,
-        eligibilityUnits: eligibilityUnits,
-        serviceUnits: serviceUnits,
-        services: services
-      });
+window.calculateTotals=function(){
 
-      window.editingId = null;
+const rate=17.5;
 
-    } else {
+const eUnits=Number(document.getElementById("eligibilityUnits").value||0);
+const sUnits=Number(document.getElementById("serviceUnits").value||0);
 
-      await addDoc(collection(db,"clients"),{
-        client: clientName,
-        status: status,
-        navigator: navigator,
-        medicaid: document.getElementById("medicaid").value,
-        medicaidLevel: document.getElementById("medicaidLevel").value,
-        eligibilityDate: document.getElementById("eligibilityDate").value,
-        followUpDate: document.getElementById("followUpDate").value,
-        eligibilityUnits: eligibilityUnits,
-        serviceUnits: serviceUnits,
-        services: services,
-        createdAt: new Date()
-      });
+const eAmount=eUnits*rate;
+const sAmount=sUnits*rate;
 
-    }
+let support=0;
 
-    alert("Client saved successfully!");
+document.querySelectorAll(".svcAmount").forEach(i=>{
+support+=Number(i.value||0);
+});
+
+document.getElementById("eligibilityTotal").innerText="$"+eAmount.toFixed(2);
+document.getElementById("serviceTotal").innerText="$"+sAmount.toFixed(2);
+document.getElementById("navigationTotal").innerText="$"+(eAmount+sAmount).toFixed(2);
+document.getElementById("supportTotal").innerText="$"+support.toFixed(2);
+document.getElementById("grandTotal").innerText="$"+(eAmount+sAmount+support).toFixed(2);
+
+};
+
+window.saveClient=async function(){
+
+const client=document.getElementById("clientName").value;
+if(!client){
+alert("Enter client name");
+return;
+}
+
+const services=[];
+document.querySelectorAll(".svcCheck").forEach((c,i)=>{
+if(c.checked){
+services.push({
+name:c.value,
+amount:Number(document.querySelectorAll(".svcAmount")[i].value||0)
+});
+}
+});
+
+const data={
+client,
+status:document.getElementById("status").value,
+navigator:document.getElementById("navigator").value,
+medicaid:document.getElementById("medicaid").value,
+medicaidLevel:document.getElementById("medicaidLevel").value,
+eligibilityDate:document.getElementById("eligibilityDate").value,
+followUpDate:document.getElementById("followUpDate").value,
+eligibilityUnits:Number(document.getElementById("eligibilityUnits").value||0),
+serviceUnits:Number(document.getElementById("serviceUnits").value||0),
+services
+};
+
+if(window.editingId){
+await updateDoc(doc(db,"clients",window.editingId),data);
+window.editingId=null;
+}else{
+await addDoc(collection(db,"clients"),data);
+}
+
 clearClientForm();
 
-  }catch(err){
-    console.error("Save error:", err);
-    alert("Error saving client. Check console.");
-  }
 };
 
 function clearClientForm(){
 
-document.getElementById("clientName").value = "";
-document.getElementById("status").value = "Open";
-document.getElementById("navigator").selectedIndex = 0;
-document.getElementById("medicaid").selectedIndex = 0;
-document.getElementById("medicaidLevel").selectedIndex = 0;
-document.getElementById("eligibilityDate").value = "";
-document.getElementById("followUpDate").value = "";
-document.getElementById("eligibilityUnits").value = "";
-document.getElementById("serviceUnits").value = "";
-
-/* CLEAR SERVICES */
-
-document.querySelectorAll(".svcCheck").forEach(cb=>{
-cb.checked = false;
+document.querySelectorAll("input").forEach(i=>{
+if(i.type!="checkbox") i.value="";
 });
 
-document.querySelectorAll(".svcAmount").forEach(input=>{
-input.value = "";
-});
+document.querySelectorAll(".svcCheck").forEach(c=>c.checked=false);
 
-/* RESET TOTALS */
-
-document.getElementById("eligibilityTotal").innerText = "$0.00";
-document.getElementById("serviceTotal").innerText = "$0.00";
-document.getElementById("navigationTotal").innerText = "$0.00";
-document.getElementById("supportTotal").innerText = "$0.00";
-document.getElementById("grandTotal").innerText = "$0.00";
-
-/* RESET EDIT MODE */
-
-window.editingId = null;
+calculateTotals();
 
 }
-/* EDIT CLIENT */
 
-window.editClient = async function(id){
+window.editClient=async function(id){
 
-  const snap = await getDoc(doc(db, "clients", id));
-  const data = snap.data();
+const snap=await getDoc(doc(db,"clients",id));
+const d=snap.data();
 
-  document.getElementById("clientName").value = data.client || "";
-  document.getElementById("status").value = data.status || "Open";
-  document.getElementById("navigator").value = data.navigator || "";
-  document.getElementById("medicaid").value = data.medicaid || "";
-  document.getElementById("medicaidLevel").value = data.medicaidLevel || "";
-  document.getElementById("eligibilityDate").value = data.eligibilityDate || "";
-  document.getElementById("followUpDate").value = data.followUpDate || "";
-  document.getElementById("eligibilityUnits").value = data.eligibilityUnits || "";
-  document.getElementById("serviceUnits").value = data.serviceUnits || "";
+document.getElementById("clientName").value=d.client||"";
+document.getElementById("status").value=d.status||"Open";
+document.getElementById("navigator").value=d.navigator||"";
 
-  document.querySelectorAll(".svcCheck").forEach((checkbox, index)=>{
-    const match = (data.services || []).find(s => s.name === checkbox.value);
+window.editingId=id;
 
-    checkbox.checked = !!match;
-
-    if(match){
-      document.querySelectorAll(".svcAmount")[index].value = match.amount;
-    } else {
-      document.querySelectorAll(".svcAmount")[index].value = "";
-    }
-  });
-
-  window.editingId = id;
-
-  showTab("entryTab");
-};
-  window.deleteClient = async function(id){
-
-  const confirmDelete = confirm("Delete this client?");
-
-  if(!confirmDelete) return;
-
-  try{
-
-    await deleteDoc(doc(db,"clients",id));
-
-    alert("Client deleted successfully.");
-
-  }catch(err){
-
-    console.error("Delete error:", err);
-    alert("Error deleting client.");
-
-  }
+showTab("entryTab");
 
 };
-window.login = async function(){
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  try{
-    await signInWithEmailAndPassword(auth,email,password);
-  }catch(err){
-    document.getElementById("loginError").innerText = err.message;
-  }
-};
 
-window.logout = function(){ signOut(auth); };
+window.deleteClient=async function(id){
 
-onAuthStateChanged(auth, (user)=>{
-  if(user){
-    document.getElementById("loginSection").classList.add("hidden");
-    document.getElementById("appSection").classList.remove("hidden");
-    document.getElementById("roleDisplay").innerText =
-      "Logged in as: " + user.email;
-    loadClients();
-    showTab('dashboardTab');
-  }else{
-    document.getElementById("loginSection").classList.remove("hidden");
-    document.getElementById("appSection").classList.add("hidden");
-  }
-});
+if(!confirm("Delete client?")) return;
 
-window.showTab = function(tabId){
-
-  document.querySelectorAll(".tabSection")
-    .forEach(s => s.classList.remove("active"));
-
-  const selectedTab = document.getElementById(tabId);
-
-  if(selectedTab){
-    selectedTab.classList.add("active");
-  }
+await deleteDoc(doc(db,"clients",id));
 
 };
 
 function loadClients(){
 
-  const tableBody = document.getElementById("clientTableBody");
-  const navCounts = {};
-  const navRevenue = {};
-  const serviceRevenue = {};
-  const statusCounts = {};
-  const monthlyRevenue = {};
+const tableBody=document.getElementById("clientTableBody");
 
-  let totalClients = 0;
-  let totalUnits = 0;
-  let totalRevenue = 0;
+onSnapshot(collection(db,"clients"),(snapshot)=>{
 
-  onSnapshot(collection(db,"clients"), (snapshot)=>{
+tableBody.innerHTML="";
+clientsData=[];
 
-    tableBody.innerHTML = "";
+let navCounts={};
+let navRevenue={};
+let totalClients=0;
+let totalUnits=0;
+let totalRevenue=0;
 
-    snapshot.forEach((doc)=>{
+snapshot.forEach(docSnap=>{
 
-      const data = doc.data();
+const data=docSnap.data();
+clientsData.push(data);
 
-      totalClients++;
+totalClients++;
 
-      const units =
-        (data.eligibilityUnits || 0) +
-        (data.serviceUnits || 0);
-const month =
-(data.eligibilityDate || "").substring(0,7);
+const units=(data.eligibilityUnits||0)+(data.serviceUnits||0);
+totalUnits+=units;
 
-if(month){
+let revenue=units*17.5;
 
-if(!monthlyRevenue[month]){
-monthlyRevenue[month] = 0;
-}
+(data.services||[]).forEach(s=>{
+revenue+=Number(s.amount||0);
+});
 
-monthlyRevenue[month] += units * 17.5;
+totalRevenue+=revenue;
 
-}
-      totalUnits += units;
+navCounts[data.navigator]=(navCounts[data.navigator]||0)+1;
+navRevenue[data.navigator]=(navRevenue[data.navigator]||0)+revenue;
 
-      totalRevenue += units * 17.5;
-
-      (data.services || []).forEach(s=>{
-        totalRevenue += Number(s.amount || 0);
-      });
-
-      navCounts[data.navigator] =
-        (navCounts[data.navigator] || 0) + 1;
-   const statusName = data.status || "Unknown";
-
-statusCounts[statusName] =
-(statusCounts[statusName] || 0) + 1;
-      const navigatorName = data.navigator || "Unknown";
-
-if(!navRevenue[navigatorName]){
-  navRevenue[navigatorName] = 0;
-}
-
-navRevenue[navigatorName] += units * 17.5;
-
-(data.services || []).forEach(s=>{
-
-  const amount = Number(s.amount || 0);
-
-  navRevenue[navigatorName] += amount;
-
-  if(!serviceRevenue[s.name]){
-    serviceRevenue[s.name] = 0;
-  }
-
-  serviceRevenue[s.name] += amount;
+tableBody.innerHTML+=`
+<tr>
+<td>${data.client||""}</td>
+<td>${data.navigator||""}</td>
+<td>${data.status||""}</td>
+<td>${data.medicaid||""}</td>
+<td>${data.medicaidLevel||""}</td>
+<td>${data.eligibilityDate||""}</td>
+<td>${data.followUpDate||""}</td>
+<td>${units}</td>
+<td>${(data.services||[]).map(s=>s.name+" ($"+s.amount+")").join(", ")}</td>
+<td>
+<button onclick="editClient('${docSnap.id}')">Edit</button>
+<button onclick="deleteClient('${docSnap.id}')">Delete</button>
+</td>
+</tr>
+`;
 
 });
 
-      const servicesList = (data.services || [])
-        .map(s => `${s.name} ($${s.amount})`)
-        .join(", ");
+populateFilters();
 
-      tableBody.innerHTML += `
-      <tr>
-        <td>${data.client || ""}</td>
-        <td>${data.navigator || ""}</td>
-        <td>${data.status || ""}</td>
-        <td>${data.medicaid || ""}</td>
-        <td>${data.medicaidLevel || ""}</td>
-        <td>${data.eligibilityDate || ""}</td>
-        <td>${data.followUpDate || ""}</td>
-        <td>${units}</td>
-        <td>${servicesList}</td>
-        <td>
-          <button onclick="editClient('${doc.id}')">Edit</button>
-          <button onclick="deleteClient('${doc.id}')">Delete</button>
-        </td>
-      </tr>
-      `;
-    });
+document.getElementById("totalClients").innerText=totalClients;
+document.getElementById("totalUnits").innerText=totalUnits;
+document.getElementById("totalRevenue").innerText="$"+totalRevenue.toFixed(2);
 
-    populateFilters();
+const ctx=document.getElementById("navChart");
 
-    /* REVENUE PER NAVIGATOR */
+if(window.navChartInstance) window.navChartInstance.destroy();
 
-const revenueCtx = document.getElementById("revenueChart");
-
-if(window.revenueChartInstance){
-  window.revenueChartInstance.destroy();
+window.navChartInstance=new Chart(ctx,{
+type:"bar",
+data:{
+labels:Object.keys(navCounts),
+datasets:[{label:"Clients per Navigator",data:Object.values(navCounts)}]
 }
+});
 
-window.revenueChartInstance = new Chart(revenueCtx,{
-  type:"bar",
-  data:{
-    labels:Object.keys(navRevenue),
-    datasets:[{
-      label:"Revenue per Navigator",
-      data:Object.values(navRevenue)
-    }]
-  },
-  options:{ responsive:true }
+const rctx=document.getElementById("revenueChart");
+
+if(window.revenueChartInstance) window.revenueChartInstance.destroy();
+
+window.revenueChartInstance=new Chart(rctx,{
+type:"bar",
+data:{
+labels:Object.keys(navRevenue),
+datasets:[{label:"Revenue per Navigator",data:Object.values(navRevenue)}]
+}
 });
 
 });
 
+}
 
+window.filterTable=function(){
 
-
-  window.filterTable = function(){
-
-const clientFilter = document.getElementById("filterClient").value;
-const navFilter = document.getElementById("filterNavigator").value;
-const statusFilter = document.getElementById("filterStatus").value;
-const medicaidFilter = document.getElementById("filterMedicaid").value;
-const levelFilter = document.getElementById("filterLevel").value;
+const client=document.getElementById("filterClient").value;
+const nav=document.getElementById("filterNavigator").value;
 
 document.querySelectorAll("#clientTableBody tr").forEach(row=>{
 
-const client = row.children[0].innerText;
-const navigator = row.children[1].innerText;
-const status = row.children[2].innerText;
-const medicaid = row.children[3].innerText;
-const level = row.children[4].innerText;
+const c=row.children[0].innerText;
+const n=row.children[1].innerText;
 
-let show = true;
+let show=true;
 
-if(clientFilter && client !== clientFilter) show = false;
-if(navFilter && navigator !== navFilter) show = false;
-if(statusFilter && status !== statusFilter) show = false;
-if(medicaidFilter && medicaid !== medicaidFilter) show = false;
-if(levelFilter && level !== levelFilter) show = false;
+if(client && client!==c) show=false;
+if(nav && nav!==n) show=false;
 
-row.style.display = show ? "" : "none";
+row.style.display=show?"":"none";
 
 });
 
 };
-  function populateFilters(){
 
-const clientSet = new Set();
-const navSet = new Set();
+function populateFilters(){
+
+const clientSet=new Set();
+const navSet=new Set();
 
 document.querySelectorAll("#clientTableBody tr").forEach(row=>{
 clientSet.add(row.children[0].innerText);
 navSet.add(row.children[1].innerText);
 });
 
-const clientSelect = document.getElementById("filterClient");
-const navSelect = document.getElementById("filterNavigator");
+const clientSelect=document.getElementById("filterClient");
+const navSelect=document.getElementById("filterNavigator");
 
-clientSelect.innerHTML = '<option value="">All</option>';
-navSelect.innerHTML = '<option value="">All</option>';
+clientSelect.innerHTML='<option value="">All</option>';
+navSelect.innerHTML='<option value="">All</option>';
 
 clientSet.forEach(v=>{
-clientSelect.innerHTML += `<option>${v}</option>`;
+clientSelect.innerHTML+=`<option>${v}</option>`;
 });
 
 navSet.forEach(v=>{
-navSelect.innerHTML += `<option>${v}</option>`;
+navSelect.innerHTML+=`<option>${v}</option>`;
 });
 
 }
-window.exportPDF = async function(){
 
-const { jsPDF } = window.jspdf;
-const pdf = new jsPDF();
+window.exportPDF=function(){
 
-const clients = document.getElementById("totalClients").innerText;
-const units = document.getElementById("totalUnits").innerText;
-const revenue = document.getElementById("totalRevenue").innerText;
+const {jsPDF}=window.jspdf;
+const pdf=new jsPDF();
 
-pdf.setFontSize(18);
-pdf.text("CCHC 1115 Waiver Dashboard Report", 20, 20);
+pdf.text("CCHC 1115 Dashboard",20,20);
 
-pdf.setFontSize(12);
+const img=document.getElementById("navChart").toDataURL("image/png");
+pdf.addImage(img,"PNG",20,40,170,80);
 
-pdf.text(`Total Clients: ${clients}`,20,40);
-pdf.text(`Total Units: ${units}`,20,50);
-pdf.text(`Total Revenue: ${revenue}`,20,60);
-
-/* CHART IMAGE */
-
-const navCanvas = document.getElementById("navChart");
-const navImage = navCanvas.toDataURL("image/png");
-
-pdf.addImage(navImage,"PNG",20,80,170,70);
-
-/* SECOND CHART */
-
-const revCanvas = document.getElementById("revenueChart");
-const revImage = revCanvas.toDataURL("image/png");
-
-pdf.addPage();
-pdf.text("Revenue by Navigator",20,20);
-pdf.addImage(revImage,"PNG",20,30,170,70);
-
-pdf.save("CCHC_1115_Report.pdf");
+pdf.save("dashboard.pdf");
 
 };
 
-  window.exportExcel = function(){
+window.exportExcel=function(){
 
-const table =
-document.getElementById("clientTable");
-
-const workbook =
-XLSX.utils.table_to_book(table,{
-sheet:"Clients"
-});
-
-XLSX.writeFile(workbook,
-"CCHC_Clients.xlsx");
+const table=document.getElementById("clientTable");
+const wb=XLSX.utils.table_to_book(table,{sheet:"Clients"});
+XLSX.writeFile(wb,"clients.xlsx");
 
 };
 
-}
+</script>
   
 </script>
 </body>
 </html>
+
 
 
 
