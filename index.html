@@ -783,20 +783,7 @@ window.revenueChartInstance = new Chart(revenueCtx,{
 });
 
 
-/* SERVICE REVENUE */
 
-const serviceRevenue = {};
-
-snapshot.forEach(doc=>{
-  const data = doc.data();
-
-  (data.services || []).forEach(s=>{
-    if(!serviceRevenue[s.name]){
-      serviceRevenue[s.name] = 0;
-    }
-    serviceRevenue[s.name] += Number(s.amount || 0);
-  });
-});
 
   window.filterTable = function(){
 
@@ -908,6 +895,7 @@ XLSX.writeFile(workbook,
 </script>
 </body>
 </html>
+
 
 
 
