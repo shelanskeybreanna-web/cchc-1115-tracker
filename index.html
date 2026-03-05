@@ -445,19 +445,27 @@ Grand Total: <span id="grandTotal">$0.00</span>
 </th>
 
 <th>
-<input id="filterEligibility" placeholder="Filter..." onkeyup="filterTable()">
+<select onchange="filterTable()" id="filterEligibility">
+<option value="">All</option>
+</select>
 </th>
 
 <th>
-<input id="filterFollowUp" placeholder="Filter..." onkeyup="filterTable()">
+<select onchange="filterTable()" id="filterFollowUp">
+<option value="">All</option>
+</select>
 </th>
 
 <th>
-<input id="filterUnits" placeholder="Filter..." onkeyup="filterTable()">
+<select onchange="filterTable()" id="filterUnits">
+<option value="">All</option>
+</select>
 </th>
 
 <th>
-<input id="filterServices" placeholder="Filter..." onkeyup="filterTable()">
+<select onchange="filterTable()" id="filterServices">
+<option value="">All</option>
+</select>
 </th>
 
 <th></th>
@@ -1036,6 +1044,7 @@ backgroundColor:"#1e6fd9"
 </script>
 </body>
 </html>
+
 
 
 
