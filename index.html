@@ -1096,20 +1096,37 @@ servicesSelect.innerHTML+=`<option>${v}</option>`;
   
 }
 
-window.exportPDF=function(){
+window.exportPDF = async function(){
 
-const {jsPDF}=window.jspdf;
-const pdf=new jsPDF();
+const { jsPDF } = window.jspdf;
 
-pdf.text("CCHC 1115 Dashboard",20,20);
+const dashboard =
+document.getElementById("dashboardTab");
 
-const img=document.getElementById("navChart").toDataURL("image/png");
-pdf.addImage(img,"PNG",20,40,170,80);
+const canvas =
+await html2canvas(dashboard,{
+scale:2
+});
 
-pdf.save("dashboard.pdf");
+const img =
+canvas.toDataURL("image/png");
+
+const pdf =
+new jsPDF("p","mm","a4");
+
+const pageWidth =
+pdf.internal.pageSize.getWidth();
+
+const imgWidth = pageWidth;
+const imgHeight =
+canvas.height * imgWidth / canvas.width;
+
+pdf.addImage(img,"PNG",0,10,imgWidth,imgHeight);
+
+pdf.save("CCHC-1115-Dashboard.pdf");
 
 };
-
+  
 window.exportExcel=function(){
 
 const table=document.getElementById("clientTable");
@@ -1218,6 +1235,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
