@@ -599,7 +599,16 @@ totalUnits+=units;
 let revenue=units*17.5;
 
 (data.services||[]).forEach(s=>{
-revenue+=Number(s.amount||0);
+
+const amount = Number(s.amount||0);
+revenue += amount;
+
+if(!serviceRevenue[s.name]){
+serviceRevenue[s.name] = 0;
+}
+
+serviceRevenue[s.name] += amount;
+
 });
 
 totalRevenue+=revenue;
@@ -735,6 +744,7 @@ XLSX.writeFile(wb,"clients.xlsx");
 </script>
 </body>
 </html>
+
 
 
 
