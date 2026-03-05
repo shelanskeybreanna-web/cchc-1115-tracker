@@ -551,14 +551,14 @@ document.getElementById("appSection").classList.add("hidden");
 
 window.showTab=function(tab){
 
-document.querySelectorAll(".tabSection").forEach(t=>{
-t.style.display="none";
+document.querySelectorAll(".tabSection").forEach(section=>{
+section.style.display="none";
 });
 
 document.getElementById(tab).style.display="block";
 
 };
-
+  
 window.calculateTotals=function(){
 
 const rate=17.5;
@@ -1025,6 +1025,7 @@ backgroundColor:"#1e6fd9"
 </script>
 </body>
 </html>
+
 
 
 
