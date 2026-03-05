@@ -614,6 +614,7 @@ serviceRevenue[s.name] += amount;
 totalRevenue+=revenue;
 
 navCounts[data.navigator]=(navCounts[data.navigator]||0)+1;
+statusCounts[data.status] = (statusCounts[data.status] || 0) + 1;
 navRevenue[data.navigator]=(navRevenue[data.navigator]||0)+revenue;
 
 tableBody.innerHTML+=`
@@ -744,6 +745,7 @@ XLSX.writeFile(wb,"clients.xlsx");
 </script>
 </body>
 </html>
+
 
 
 
