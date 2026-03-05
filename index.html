@@ -877,39 +877,38 @@ document.getElementById("leaderboard").innerHTML = html;
 
 window.filterTable=function(){
 
-const client=document.getElementById("filterClient").value.toLowerCase();
-const nav=document.getElementById("filterNavigator").value.toLowerCase();
-const status=document.getElementById("filterStatus").value.toLowerCase();
-const medicaid=document.getElementById("filterMedicaid").value.toLowerCase();
-const level=document.getElementById("filterLevel").value.toLowerCase();
-
-const eligibility=document.getElementById("filterEligibility")?.value.toLowerCase()||"";
-const follow=document.getElementById("filterFollowUp")?.value.toLowerCase()||"";
-const units=document.getElementById("filterUnits")?.value.toLowerCase()||"";
-const services=document.getElementById("filterServices")?.value.toLowerCase()||"";
+const client=document.getElementById("filterClient").value;
+const nav=document.getElementById("filterNavigator").value;
+const status=document.getElementById("filterStatus").value;
+const medicaid=document.getElementById("filterMedicaid").value;
+const level=document.getElementById("filterLevel").value;
+const eligibility=document.getElementById("filterEligibility").value;
+const follow=document.getElementById("filterFollowUp").value;
+const units=document.getElementById("filterUnits").value;
+const services=document.getElementById("filterServices").value;
 
 document.querySelectorAll("#clientTableBody tr").forEach(row=>{
 
-const c=row.children[0].innerText.toLowerCase();
-const n=row.children[1].innerText.toLowerCase();
-const s=row.children[2].innerText.toLowerCase();
-const m=row.children[3].innerText.toLowerCase();
-const l=row.children[4].innerText.toLowerCase();
-const e=row.children[5].innerText.toLowerCase();
-const f=row.children[6].innerText.toLowerCase();
-const u=row.children[7].innerText.toLowerCase();
-const sv=row.children[8].innerText.toLowerCase();
+const c=row.children[0].innerText;
+const n=row.children[1].innerText;
+const s=row.children[2].innerText;
+const m=row.children[3].innerText;
+const l=row.children[4].innerText;
+const e=row.children[5].innerText;
+const f=row.children[6].innerText;
+const u=row.children[7].innerText;
+const sv=row.children[8].innerText;
 
 let show=true;
 
-if(client && !c.includes(client)) show=false;
-if(nav && !n.includes(nav)) show=false;
-if(status && !s.includes(status)) show=false;
-if(medicaid && !m.includes(medicaid)) show=false;
-if(level && !l.includes(level)) show=false;
-if(eligibility && !e.includes(eligibility)) show=false;
-if(follow && !f.includes(follow)) show=false;
-if(units && !u.includes(units)) show=false;
+if(client && client!==c) show=false;
+if(nav && nav!==n) show=false;
+if(status && status!==s) show=false;
+if(medicaid && medicaid!==m) show=false;
+if(level && level!==l) show=false;
+if(eligibility && eligibility!==e) show=false;
+if(follow && follow!==f) show=false;
+if(units && units!==u) show=false;
 if(services && !sv.includes(services)) show=false;
 
 row.style.display=show?"":"none";
@@ -1044,6 +1043,7 @@ backgroundColor:"#1e6fd9"
 </script>
 </body>
 </html>
+
 
 
 
