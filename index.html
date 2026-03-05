@@ -1136,6 +1136,25 @@ backgroundColor:"#1e6fd9"
 }
 });
 
+const revCtx =
+document.getElementById("monthlyRevenueNavigatorChart");
+
+if(window.monthRevChart){
+window.monthRevChart.destroy();
+}
+
+window.monthRevChart = new Chart(revCtx,{
+type:"bar",
+data:{
+labels:Object.keys(navRevenue),
+datasets:[{
+label:"Revenue per Navigator",
+data:Object.values(navRevenue),
+backgroundColor:"#00b894"
+}]
+}
+});
+  
 });
 
 };
@@ -1143,6 +1162,7 @@ backgroundColor:"#1e6fd9"
 </script>
 </body>
 </html>
+
 
 
 
