@@ -1051,6 +1051,90 @@ document.getElementById("leaderboard").innerHTML = html;
 
 }
 
+function rebuildDashboard(){
+
+const selectedMonth =
+document.getElementById("dashboardMonth")?.value;
+
+let navCounts={};
+let navRevenue={};
+let serviceRevenue={};
+let statusCounts={};
+let medicaidCounts={};
+let medicaidLevelCounts={};
+
+let totalClients=0;
+let totalUnits=0;
+let totalRevenue=0;
+
+clientsData.forEach(data=>{
+
+const clientMonth =
+(data.eligibilityDate || "").substring(0,7);
+
+if(selectedMonth && clientMonth !== selectedMonth){
+return;
+}
+
+totalClients++;
+
+const units =
+(data.eligibilityUnits||0) +
+(data.serviceUnits||0);
+
+totalUnits+=units;
+
+let revenue=units*17.5;
+
+(data.services||[]).forEach(s=>{
+
+const amount = Number(s.amount||0);
+revenue += amount;
+
+serviceRevenue[s.name] =
+(serviceRevenue[s.name]||0) + amount;
+
+});
+
+totalRevenue+=revenue;
+
+navCounts[data.navigator] =
+(navCounts[data.navigator]||0)+1;
+
+navRevenue[data.navigator] =
+(navRevenue[data.navigator]||0)+revenue;
+
+statusCounts[data.status] =
+(statusCounts[data.status]||0)+1;
+
+medicaidCounts[data.medicaid] =
+(medicaidCounts[data.medicaid]||0)+1;
+
+medicaidLevelCounts[data.medicaidLevel] =
+(medicaidLevelCounts[data.medicaidLevel]||0)+1;
+
+});
+
+/* DASHBOARD NUMBERS */
+
+document.getElementById("totalClients").innerText = totalClients;
+document.getElementById("totalUnits").innerText = totalUnits;
+document.getElementById("totalRevenue").innerText =
+"$"+totalRevenue.toFixed(2);
+
+document.getElementById("avgRevenue").innerText =
+"$"+(totalClients ? (totalRevenue/totalClients).toFixed(2) : 0);
+
+/* TOP NAVIGATOR */
+
+const topNav =
+Object.entries(navRevenue).sort((a,b)=>b[1]-a[1])[0];
+
+document.getElementById("topNavigator").innerText =
+topNav ? `${topNav[0]} ($${topNav[1].toFixed(0)})` : "-";
+
+}
+  
 window.filterTable=function(){
 
 const client=document.getElementById("filterClient").value;
@@ -1327,6 +1411,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
