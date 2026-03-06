@@ -803,6 +803,9 @@ let totalRevenue=0;
 
 snapshot.forEach(docSnap=>{
 
+const selectedMonth =
+document.getElementById("dashboardMonth")?.value;
+  
 const data=docSnap.data();
 clientsData.push(data);
 
@@ -1288,6 +1291,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
