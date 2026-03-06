@@ -810,12 +810,17 @@ const selectedMonth =
 document.getElementById("dashboardMonth")?.value;
   
 const data=docSnap.data();
+/* DASHBOARD MONTH FILTER */
+
+const selectedMonth =
+document.getElementById("dashboardMonth")?.value;
+
 if(selectedMonth){
 
-const rowMonth =
+const clientMonth =
 (data.eligibilityDate || "").substring(0,7);
 
-if(rowMonth !== selectedMonth){
+if(clientMonth !== selectedMonth){
 return;
 }
 
@@ -1343,6 +1348,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
