@@ -783,6 +783,8 @@ unsubscribeClients();
 }
 
 unsubscribeClients = onSnapshot(collection(db,"clients"),(snapshot)=>{
+
+function rebuildDashboard(){
   
 const selectedMonth =
 document.getElementById("dashboardMonth")?.value;
@@ -1411,6 +1413,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
