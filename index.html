@@ -778,7 +778,11 @@ function loadClients(){
 
 const tableBody=document.getElementById("clientTableBody");
 
-onSnapshot(collection(db,"clients"),(snapshot)=>{
+if(unsubscribeClients){
+unsubscribeClients();
+}
+
+unsubscribeClients = onSnapshot(collection(db,"clients"),(snapshot)=>{
   
 const selectedMonth =
 document.getElementById("dashboardMonth")?.value;
@@ -1332,6 +1336,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
