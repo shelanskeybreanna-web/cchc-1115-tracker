@@ -1047,11 +1047,11 @@ ${i+1}. ${nav[0]} — $${nav[1].toFixed(2)}
 });
 
 document.getElementById("leaderboard").innerHTML = html;
+rebuildDashboard();
 });
 
 }
 
-function rebuildDashboard(){
 
 const selectedMonth =
 document.getElementById("dashboardMonth")?.value;
@@ -1411,6 +1411,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
