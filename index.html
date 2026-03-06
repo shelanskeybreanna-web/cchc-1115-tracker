@@ -806,16 +806,13 @@ snapshot.forEach(docSnap=>{
   
 const data=docSnap.data();
 
-if(selectedMonth){
-
 const clientMonth =
 (data.eligibilityDate || "").substring(0,7);
 
-if(clientMonth !== selectedMonth){
+if(selectedMonth && clientMonth !== selectedMonth){
 return;
 }
-
-}
+  
 clientsData.push(data);
 
 totalClients++;
@@ -1336,6 +1333,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
