@@ -785,6 +785,9 @@ function loadClients(){
 const tableBody=document.getElementById("clientTableBody");
 
 onSnapshot(collection(db,"clients"),(snapshot)=>{
+  
+const selectedMonth =
+document.getElementById("dashboardMonth")?.value;
 
 tableBody.innerHTML="";
 clientsData=[];
@@ -1340,6 +1343,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
