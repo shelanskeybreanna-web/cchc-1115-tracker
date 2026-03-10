@@ -809,22 +809,14 @@ const data = docSnap.data();
 const clientMonth =
 (data.eligibilityDate || "").substring(0,7);
 
-const monthMatch = !selectedMonth || clientMonth === selectedMonth;
-  
+const monthMatch =
+!selectedMonth || clientMonth === selectedMonth;
+
 clientsData.push(data);
 
-if(!selectedMonth || clientMonth === selectedMonth){
-if(monthMatch){
-totalClients++;
-}
-  
 const units =
 (data.eligibilityUnits||0) +
 (data.serviceUnits||0);
-
-if(monthMatch){
-totalUnits += units;
-}
 
 let revenue = units * 17.5;
 
@@ -836,19 +828,13 @@ serviceRevenue[s.name] =
 (serviceRevenue[s.name]||0)+amount;
 });
 
+/* ONLY COUNT IF MONTH MATCH */
+
 if(monthMatch){
+
+totalClients++;
+totalUnits += units;
 totalRevenue += revenue;
-}
-
-if(data.eligibilityDate){
-const month = data.eligibilityDate.substring(0,7);
-monthlyRevenue[month] =
-(monthlyRevenue[month]||0)+revenue;
-}
-
-if(!selectedMonth || clientMonth === selectedMonth){
-
-if(monthMatch){
 
 navCounts[data.navigator] =
 (navCounts[data.navigator]||0)+1;
@@ -856,14 +842,8 @@ navCounts[data.navigator] =
 navRevenue[data.navigator] =
 (navRevenue[data.navigator]||0)+revenue;
 
-}
-  
-if(monthMatch){
 statusCounts[data.status] =
 (statusCounts[data.status]||0)+1;
-}
-
-if(monthMatch){
 
 medicaidCounts[data.medicaid] =
 (medicaidCounts[data.medicaid]||0)+1;
@@ -871,11 +851,7 @@ medicaidCounts[data.medicaid] =
 medicaidLevelCounts[data.medicaidLevel] =
 (medicaidLevelCounts[data.medicaidLevel]||0)+1;
 
-}
-
-/* TABLE */
-
-if(!selectedMonth || clientMonth === selectedMonth){
+/* BUILD TABLE */
 
 tableBody.innerHTML+=`
 <tr>
@@ -897,8 +873,17 @@ tableBody.innerHTML+=`
 
 }
 
-});
+if(data.eligibilityDate){
 
+const month = data.eligibilityDate.substring(0,7);
+
+monthlyRevenue[month] =
+(monthlyRevenue[month]||0)+revenue;
+
+}
+
+});
+  
 /* DASHBOARD TOTALS */
 
 document.getElementById("totalClients").innerText = totalClients;
@@ -1297,6 +1282,7 @@ data:Object.values(navRevenue)
 </script>
 </body>
 </html>
+
 
 
 
