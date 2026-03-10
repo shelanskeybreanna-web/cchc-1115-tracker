@@ -836,7 +836,9 @@ serviceRevenue[s.name] =
 (serviceRevenue[s.name]||0)+amount;
 });
 
+if(monthMatch){
 totalRevenue += revenue;
+}
 
 if(data.eligibilityDate){
 const month = data.eligibilityDate.substring(0,7);
@@ -1281,6 +1283,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
