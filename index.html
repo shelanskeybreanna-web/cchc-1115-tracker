@@ -809,6 +809,8 @@ const data = docSnap.data();
 const clientMonth =
 (data.eligibilityDate || "").substring(0,7);
 
+if(selectedMonth && clientMonth !== selectedMonth) return;
+
 const monthMatch =
 !selectedMonth || clientMonth === selectedMonth;
 
@@ -1284,6 +1286,7 @@ data:Object.values(navRevenue)
 </script>
 </body>
 </html>
+
 
 
 
