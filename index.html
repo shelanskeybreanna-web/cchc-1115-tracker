@@ -860,6 +860,8 @@ medicaidLevelCounts[data.medicaidLevel] =
 
 /* TABLE */
 
+if(!selectedMonth || clientMonth === selectedMonth){
+
 tableBody.innerHTML+=`
 <tr>
 <td>${data.client||""}</td>
@@ -877,6 +879,8 @@ tableBody.innerHTML+=`
 </td>
 </tr>
 `;
+
+}
 
 });
 
@@ -1272,6 +1276,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
