@@ -776,7 +776,7 @@ await deleteDoc(doc(db,"clients",id));
 
 function loadClients(){
 
-const tableBody=document.getElementById("clientTableBody");
+const tableBody = document.getElementById("clientTableBody");
 
 if(unsubscribeClients){
 unsubscribeClients();
@@ -805,6 +805,7 @@ let totalRevenue=0;
 snapshot.forEach(docSnap=>{
 
 const data = docSnap.data();
+clientsData.push(data);
 
 const clientMonth =
 (data.eligibilityDate || "").substring(0,7);
@@ -812,8 +813,6 @@ const clientMonth =
 if(selectedMonth && clientMonth !== selectedMonth){
 return;
 }
-
-clientsData.push(data);
 
 totalClients++;
 
@@ -826,24 +825,18 @@ totalUnits += units;
 let revenue = units * 17.5;
 
 (data.services||[]).forEach(s=>{
-
 const amount = Number(s.amount||0);
 revenue += amount;
-
 serviceRevenue[s.name] =
 (serviceRevenue[s.name]||0)+amount;
-
 });
 
 totalRevenue += revenue;
 
 if(data.eligibilityDate){
-
 const month = data.eligibilityDate.substring(0,7);
-
 monthlyRevenue[month] =
 (monthlyRevenue[month]||0)+revenue;
-
 }
 
 navCounts[data.navigator] =
@@ -860,8 +853,6 @@ medicaidCounts[data.medicaid] =
 
 medicaidLevelCounts[data.medicaidLevel] =
 (medicaidLevelCounts[data.medicaidLevel]||0)+1;
-
-/* BUILD CLIENT TABLE */
 
 tableBody.innerHTML+=`
 <tr>
@@ -902,8 +893,138 @@ Object.entries(navRevenue).sort((a,b)=>b[1]-a[1])[0];
 
 document.getElementById("topNavigator").innerText =
 topNav ? `${topNav[0]} ($${topNav[1].toFixed(0)})` : "-";
-  
+
+/* CLIENTS PER NAVIGATOR */
+
+const ctx=document.getElementById("navChart");
+
+if(window.navChartInstance) window.navChartInstance.destroy();
+
+window.navChartInstance=new Chart(ctx,{
+type:"bar",
+data:{
+labels:Object.keys(navCounts),
+datasets:[{label:"Clients per Navigator",data:Object.values(navCounts)}]
+}
 });
+
+/* REVENUE PER NAVIGATOR */
+
+const rctx=document.getElementById("revenueChart");
+
+if(window.revenueChartInstance) window.revenueChartInstance.destroy();
+
+window.revenueChartInstance=new Chart(rctx,{
+type:"bar",
+data:{
+labels:Object.keys(navRevenue),
+datasets:[{label:"Revenue per Navigator",data:Object.values(navRevenue)}]
+}
+});
+
+/* SERVICE REVENUE */
+
+const serviceCtx=document.getElementById("serviceChart");
+
+if(window.serviceChartInstance) window.serviceChartInstance.destroy();
+
+window.serviceChartInstance=new Chart(serviceCtx,{
+type:"pie",
+data:{
+labels:Object.keys(serviceRevenue),
+datasets:[{data:Object.values(serviceRevenue)}]
+}
+});
+
+/* CASE STATUS */
+
+const statusCtx=document.getElementById("statusChart");
+
+if(window.statusChartInstance) window.statusChartInstance.destroy();
+
+window.statusChartInstance=new Chart(statusCtx,{
+type:"doughnut",
+data:{
+labels:Object.keys(statusCounts),
+datasets:[{data:Object.values(statusCounts)}]
+}
+});
+
+/* MEDICAID TYPE */
+
+const medicaidCtx =
+document.getElementById("medicaidChart");
+
+if(window.medicaidChartInstance){
+window.medicaidChartInstance.destroy();
+}
+
+window.medicaidChartInstance=new Chart(medicaidCtx,{
+type:"pie",
+data:{
+labels:Object.keys(medicaidCounts),
+datasets:[{
+data:Object.values(medicaidCounts)
+}]
+}
+});
+
+/* MEDICAID LEVEL */
+
+const medicaidLevelCtx =
+document.getElementById("medicaidLevelChart");
+
+if(window.medicaidLevelChartInstance){
+window.medicaidLevelChartInstance.destroy();
+}
+
+window.medicaidLevelChartInstance=new Chart(medicaidLevelCtx,{
+type:"pie",
+data:{
+labels:Object.keys(medicaidLevelCounts),
+datasets:[{
+data:Object.values(medicaidLevelCounts)
+}]
+}
+});
+
+/* MONTHLY REVENUE */
+
+const monthlyCtx=document.getElementById("monthlyChart");
+
+if(window.monthlyChartInstance) window.monthlyChartInstance.destroy();
+
+window.monthlyChartInstance=new Chart(monthlyCtx,{
+type:"line",
+data:{
+labels:Object.keys(monthlyRevenue),
+datasets:[{
+label:"Monthly Revenue",
+data:Object.values(monthlyRevenue)
+}]
+}
+});
+
+/* NAVIGATOR LEADERBOARD */
+
+const leaderboard =
+Object.entries(navRevenue).sort((a,b)=>b[1]-a[1]);
+
+let html="";
+
+leaderboard.forEach((nav,i)=>{
+html += `
+<div style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.1)">
+${i+1}. ${nav[0]} — $${nav[1].toFixed(2)}
+</div>
+`;
+});
+
+document.getElementById("leaderboard").innerHTML = html;
+
+});
+
+}
 
 
 const selectedMonth =
@@ -1255,6 +1376,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
