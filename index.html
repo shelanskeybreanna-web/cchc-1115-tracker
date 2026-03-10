@@ -858,14 +858,20 @@ navRevenue[data.navigator] =
 
 }
   
+if(monthMatch){
 statusCounts[data.status] =
 (statusCounts[data.status]||0)+1;
+}
+
+if(monthMatch){
 
 medicaidCounts[data.medicaid] =
 (medicaidCounts[data.medicaid]||0)+1;
 
 medicaidLevelCounts[data.medicaidLevel] =
 (medicaidLevelCounts[data.medicaidLevel]||0)+1;
+
+}
 
 /* TABLE */
 
@@ -1285,6 +1291,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
