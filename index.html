@@ -809,14 +809,12 @@ const data = docSnap.data();
 const clientMonth =
 (data.eligibilityDate || "").substring(0,7);
 
-if(selectedMonth && clientMonth !== selectedMonth){
-return;
-}
-
 clientsData.push(data);
 
+if(!selectedMonth || clientMonth === selectedMonth){
 totalClients++;
-
+}
+  
 const units =
 (data.eligibilityUnits||0) +
 (data.serviceUnits||0);
@@ -1270,6 +1268,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
