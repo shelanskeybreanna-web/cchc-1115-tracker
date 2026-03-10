@@ -783,7 +783,90 @@ unsubscribeClients();
 }
 
 unsubscribeClients = onSnapshot(collection(db,"clients"),(snapshot)=>{
+tableBody.innerHTML="";
+clientsData=[];
 
+let navCounts={};
+let navRevenue={};
+let serviceRevenue={};
+let statusCounts={};
+let monthlyRevenue={};
+let medicaidCounts={};
+let medicaidLevelCounts={};
+
+let totalClients=0;
+let totalUnits=0;
+let totalRevenue=0;
+
+snapshot.forEach(docSnap=>{
+
+const data = docSnap.data();
+clientsData.push(data);
+
+totalClients++;
+
+const units =
+(data.eligibilityUnits||0) +
+(data.serviceUnits||0);
+
+totalUnits+=units;
+
+let revenue = units * 17.5;
+
+(data.services||[]).forEach(s=>{
+
+const amount = Number(s.amount||0);
+revenue += amount;
+
+serviceRevenue[s.name] =
+(serviceRevenue[s.name]||0) + amount;
+
+});
+
+totalRevenue+=revenue;
+
+if(data.eligibilityDate){
+
+const month = data.eligibilityDate.substring(0,7);
+
+if(!monthlyRevenue[month]){
+monthlyRevenue[month]=0;
+}
+
+monthlyRevenue[month]+=revenue;
+
+}
+
+navCounts[data.navigator]=(navCounts[data.navigator]||0)+1;
+navRevenue[data.navigator]=(navRevenue[data.navigator]||0)+revenue;
+
+statusCounts[data.status]=(statusCounts[data.status]||0)+1;
+
+medicaidCounts[data.medicaid]=(medicaidCounts[data.medicaid]||0)+1;
+
+medicaidLevelCounts[data.medicaidLevel]=(medicaidLevelCounts[data.medicaidLevel]||0)+1;
+
+/* BUILD CLIENT TABLE */
+
+tableBody.innerHTML+=`
+<tr>
+<td>${data.client||""}</td>
+<td>${data.navigator||""}</td>
+<td>${data.status||""}</td>
+<td>${data.medicaid||""}</td>
+<td>${data.medicaidLevel||""}</td>
+<td>${data.eligibilityDate||""}</td>
+<td>${data.followUpDate||""}</td>
+<td>${units}</td>
+<td>${(data.services||[]).map(s=>s.name+" ($"+s.amount+")").join(", ")}</td>
+<td>
+<button onclick="editClient('${docSnap.id}')">Edit</button>
+<button onclick="deleteClient('${docSnap.id}')">Delete</button>
+</td>
+</tr>
+`;
+
+});
 
 /* UNITS THIS MONTH */
 
@@ -1283,6 +1366,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
