@@ -822,7 +822,9 @@ const units =
 (data.eligibilityUnits||0) +
 (data.serviceUnits||0);
 
+if(monthMatch){
 totalUnits += units;
+}
 
 let revenue = units * 17.5;
 
@@ -1279,6 +1281,7 @@ backgroundColor:"#00b894"
 </script>
 </body>
 </html>
+
 
 
 
