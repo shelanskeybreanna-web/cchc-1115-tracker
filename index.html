@@ -843,6 +843,15 @@ totalRevenue += revenue;
 
 navRevenue[data.navigator] =
 (navRevenue[data.navigator]||0)+revenue;
+  
+statusCounts[data.status] =
+(statusCounts[data.status]||0)+1;
+
+medicaidCounts[data.medicaid] =
+(medicaidCounts[data.medicaid]||0)+1;
+
+medicaidLevelCounts[data.medicaidLevel] =
+(medicaidLevelCounts[data.medicaidLevel]||0)+1;
 
 });
 
@@ -1186,6 +1195,7 @@ data:Object.values(navRevenue)
 </script>
 </body>
 </html>
+
 
 
 
