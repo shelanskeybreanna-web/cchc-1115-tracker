@@ -829,7 +829,14 @@ totalUnits += units;
 let revenue = units * 17.5;
 
 (data.services||[]).forEach(s=>{
-revenue += Number(s.amount||0);
+
+const amount = Number(s.amount||0);
+
+revenue += amount;
+
+serviceRevenue[s.name] =
+(serviceRevenue[s.name]||0)+amount;
+
 });
 
 totalRevenue += revenue;
@@ -1179,6 +1186,7 @@ data:Object.values(navRevenue)
 </script>
 </body>
 </html>
+
 
 
 
