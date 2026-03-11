@@ -991,6 +991,26 @@ data:Object.values(medicaidLevelCounts)
 }]
 }
 });
+
+/* MONTHLY REVENUE */
+
+const monthlyCtx =
+document.getElementById("monthlyChart");
+
+if(window.monthlyChartInstance)
+window.monthlyChartInstance.destroy();
+
+window.monthlyChartInstance =
+new Chart(monthlyCtx,{
+type:"line",
+data:{
+labels:Object.keys(monthlyRevenue),
+datasets:[{
+label:"Monthly Revenue",
+data:Object.values(monthlyRevenue)
+}]
+}
+});
   
 }
 window.filterTable=function(){
@@ -1277,6 +1297,7 @@ data:Object.values(navRevenue)
 </script>
 </body>
 </html>
+
 
 
 
