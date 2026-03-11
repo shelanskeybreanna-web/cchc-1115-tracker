@@ -1151,113 +1151,12 @@ XLSX.writeFile(wb,"clients.xlsx");
 };
 
 
-  window.loadMonthlyData = function(){
-
-const selectedMonth =
-document.getElementById("monthSelector").value;
-
-if(!selectedMonth) return;
-
-let clients = 0;
-let units = 0;
-let revenue = 0;
-
-let navCounts = {};
-let navRevenue = {};
-
-onSnapshot(collection(db,"clients"), (snapshot)=>{
-
-let clients = 0;
-let units = 0;
-let revenue = 0;
-
-let navCounts = {};
-let navRevenue = {};
-
-snapshot.forEach(doc=>{
-
-const data = doc.data();
-
-const clientMonth =
-(data.eligibilityDate || "").substring(0,7);
-
-if(clientMonth === selectedMonth){
-
-clients++;
-
-const clientUnits =
-(data.eligibilityUnits || 0) +
-(data.serviceUnits || 0);
-
-units += clientUnits;
-
-let clientRevenue = clientUnits * 17.5;
-
-(data.services || []).forEach(s=>{
-clientRevenue += Number(s.amount || 0);
-});
-
-revenue += clientRevenue;
-
-navCounts[data.navigator] =
-(navCounts[data.navigator] || 0) + 1;
-
-navRevenue[data.navigator] =
-(navRevenue[data.navigator] || 0) + clientRevenue;
-
-}
-
-});
-
-document.getElementById("monthClients").innerText = clients;
-document.getElementById("monthUnitsTotal").innerText = units;
-document.getElementById("monthRevenue").innerText = "$" + revenue.toFixed(2);
-
-/* NAVIGATOR CLIENT CHART */
-
-const ctx = document.getElementById("monthlyNavigatorChart");
-
-if(window.monthNavChart){
-window.monthNavChart.destroy();
-}
-
-window.monthNavChart = new Chart(ctx,{
-type:"bar",
-data:{
-labels:Object.keys(navCounts),
-datasets:[{
-label:"Clients per Navigator",
-data:Object.values(navCounts)
-}]
-}
-});
-
-/* NAVIGATOR REVENUE CHART */
-
-const revCtx = document.getElementById("monthlyRevenueNavigatorChart");
-
-if(window.monthRevChart){
-window.monthRevChart.destroy();
-}
-
-window.monthRevChart = new Chart(revCtx,{
-type:"bar",
-data:{
-labels:Object.keys(navRevenue),
-datasets:[{
-label:"Revenue per Navigator",
-data:Object.values(navRevenue)
-}]
-}
-});
-
-});
-
-};
+  
   
 </script>
 </body>
 </html>
+
 
 
 
