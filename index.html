@@ -814,7 +814,9 @@ const clientMonth =
 
 if(selectedMonth && clientMonth !== selectedMonth) return;
 
+if(!selectedMonth || clientMonth === selectedMonth){
 clientsData.push(data);
+}
 
 const units =
 (data.eligibilityUnits||0) +
@@ -1286,6 +1288,7 @@ data:Object.values(navRevenue)
 </script>
 </body>
 </html>
+
 
 
 
