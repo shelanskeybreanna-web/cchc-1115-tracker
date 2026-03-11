@@ -1011,6 +1011,26 @@ data:Object.values(monthlyRevenue)
 }]
 }
 });
+
+/* NAVIGATOR LEADERBOARD */
+
+const leaderboard =
+Object.entries(navRevenue)
+.sort((a,b)=>b[1]-a[1]);
+
+let html="";
+
+leaderboard.forEach((nav,i)=>{
+
+html+=`
+<div style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.1)">
+${i+1}. ${nav[0]} — $${nav[1].toFixed(2)}
+</div>
+`;
+
+});
+
+document.getElementById("leaderboard").innerHTML = html;
   
 }
 window.filterTable=function(){
@@ -1297,6 +1317,7 @@ data:Object.values(navRevenue)
 </script>
 </body>
 </html>
+
 
 
 
