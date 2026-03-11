@@ -785,10 +785,15 @@ unsubscribeClients = onSnapshot(collection(db,"clients"),(snapshot)=>{
 clientsData = [];
 
 snapshot.forEach(doc=>{
-clientsData.push(doc.data());
-});
+const data = docSnap.data();
 
-updateDashboard();
+const clientMonth =
+(data.eligibilityDate || "").substring(0,7);
+
+const selectedMonth =
+document.getElementById("dashboardMonth")?.value;
+
+if(selectedMonth && clientMonth !== selectedMonth) return;
 
 });
 
@@ -1317,6 +1322,7 @@ data:Object.values(navRevenue)
 </script>
 </body>
 </html>
+
 
 
 
