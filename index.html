@@ -1033,8 +1033,8 @@ tableBody.innerHTML+=`
 <td>${units}</td>
 <td>${(data.services||[]).map(s=>s.name+" ($"+s.amount+")").join(", ")}</td>
 <td>
-<button onclick="editClient('${data.id}')">Edit</button>
-<button onclick="deleteClient('${data.id}')">Delete</button>
+<button onclick="window.editClient('${data.id}')">Edit</button>
+<button onclick="window.deleteClient('${data.id}')">Delete</button>
 </td>
 </tr>
 `;
@@ -1228,6 +1228,7 @@ XLSX.writeFile(wb,"clients.xlsx");
 </script>
 </body>
 </html>
+
 
 
 
