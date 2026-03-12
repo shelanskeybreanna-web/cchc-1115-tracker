@@ -923,6 +923,9 @@ document.getElementById("avgRevenue").innerText =
 
 document.getElementById("monthUnits").innerText = totalUnits;
 
+document.getElementById("followUpsToday").innerText = followUpsToday;
+document.getElementById("followUpsOverdue").innerText = followUpsOverdue;
+  
 const topNav =
 Object.entries(navRevenue).sort((a,b)=>b[1]-a[1])[0];
 
@@ -1304,6 +1307,7 @@ XLSX.writeFile(wb,"clients.xlsx");
 </script>
 </body>
 </html>
+
 
 
 
