@@ -876,10 +876,24 @@ const today = new Date().toISOString().substring(0,10);
 
 if(data.followUpDate === today){
 followUpsToday++;
+
+followUpAlerts.push({
+client: data.client,
+date: data.followUpDate,
+type: "today"
+});
+
 }
 
 if(data.followUpDate < today){
 followUpsOverdue++;
+
+followUpAlerts.push({
+client: data.client,
+date: data.followUpDate,
+type: "overdue"
+});
+
 }
 
 }
@@ -1334,6 +1348,7 @@ XLSX.writeFile(wb,"clients.xlsx");
 </script>
 </body>
 </html>
+
 
 
 
