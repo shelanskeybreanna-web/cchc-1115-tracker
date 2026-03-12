@@ -752,7 +752,14 @@ filtered = [...clientsData];
 }else{
 
 filtered = clientsData.filter(c=>{
-return (c.eligibilityDate || "").substring(0,7) === selectedMonth;
+
+console.log("Checking client date:", c.eligibilityDate);
+
+const month =
+(c.eligibilityDate || "").substring(0,7);
+
+return month === selectedMonth;
+
 });
 
 }
@@ -1213,6 +1220,7 @@ XLSX.writeFile(wb,"clients.xlsx");
 </script>
 </body>
 </html>
+
 
 
 
