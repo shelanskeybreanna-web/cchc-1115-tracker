@@ -224,6 +224,16 @@ margin-bottom:20px;
 <div id="topNavigator" style="font-size:20px;font-weight:bold;">-</div>
 </div>
 
+<div class="card" style="text-align:center;">
+<h4>📅 Follow Ups Today</h4>
+<div id="followUpsToday" style="font-size:26px;font-weight:bold;">0</div>
+</div>
+
+<div class="card" style="text-align:center;">
+<h4>⚠️ Overdue Follow Ups</h4>
+<div id="followUpsOverdue" style="font-size:26px;font-weight:bold;">0</div>
+</div>
+  
 </div>
 
 <button onclick="exportPDF()" style="margin-bottom:15px;">
@@ -1276,6 +1286,7 @@ XLSX.writeFile(wb,"clients.xlsx");
 </script>
 </body>
 </html>
+
 
 
 
