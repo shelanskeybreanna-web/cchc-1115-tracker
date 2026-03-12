@@ -862,6 +862,22 @@ serviceRevenue[s.name] =
 
 totalRevenue += revenue;
 
+/* FOLLOW UP TRACKING */
+
+if(data.followUpDate){
+
+const today = new Date().toISOString().substring(0,10);
+
+if(data.followUpDate === today){
+followUpsToday++;
+}
+
+if(data.followUpDate < today){
+followUpsOverdue++;
+}
+
+}
+  
 /* MONTHLY REVENUE SHOULD USE ALL DATA */
 
 clientsData.forEach(d=>{
@@ -1288,6 +1304,7 @@ XLSX.writeFile(wb,"clients.xlsx");
 </script>
 </body>
 </html>
+
 
 
 
