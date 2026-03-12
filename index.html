@@ -959,7 +959,7 @@ const color = a.type === "overdue" ? "#ff6b6b" : "#ffd93d";
 
 alertHTML += `
 <div style="padding:6px;border-bottom:1px solid rgba(255,255,255,0.1);color:${color}">
-${a.client} — ${a.date}
+${a.client} — ${new Date(a.date).toLocaleDateString("en-US",{month:"short",day:"numeric"})}
 </div>
 `;
 
@@ -1348,6 +1348,7 @@ XLSX.writeFile(wb,"clients.xlsx");
 </script>
 </body>
 </html>
+
 
 
 
