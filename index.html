@@ -836,7 +836,9 @@ let statusCounts = {};
 let medicaidCounts = {};
 let medicaidLevelCounts = {};
 let monthlyRevenue = {};
-
+let followUpsToday = 0;
+let followUpsOverdue = 0;
+  
 filtered.forEach(data=>{
 
 const units =
@@ -1286,6 +1288,7 @@ XLSX.writeFile(wb,"clients.xlsx");
 </script>
 </body>
 </html>
+
 
 
 
