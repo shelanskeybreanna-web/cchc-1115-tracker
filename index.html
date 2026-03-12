@@ -726,7 +726,10 @@ unsubscribeClients = onSnapshot(collection(db,"clients"),(snapshot)=>{
 clientsData = [];
 
 snapshot.forEach(doc=>{
-clientsData.push(doc.data());
+clientsData.push({
+id: doc.id,
+...doc.data()
+});
 });
 
 updateDashboard();
@@ -1225,6 +1228,7 @@ XLSX.writeFile(wb,"clients.xlsx");
 </script>
 </body>
 </html>
+
 
 
 
