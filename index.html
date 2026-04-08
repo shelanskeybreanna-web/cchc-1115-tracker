@@ -1139,6 +1139,12 @@ const tableBody = document.getElementById("clientTableBody");
 
 tableBody.innerHTML = "";
 
+const sortedClients = [...clientsData].sort((a,b) => {
+  if (!a.followUpDate) return 1;
+  if (!b.followUpDate) return -1;
+  return new Date(a.followUpDate) - new Date(b.followUpDate);
+});
+  
 clientsData.forEach(data=>{
 
 const units =
