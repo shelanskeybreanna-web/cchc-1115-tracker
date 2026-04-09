@@ -949,10 +949,9 @@ type: "overdue"
   
 /* MONTHLY REVENUE SHOULD USE ALL DATA */
 
-clientsData.forEach(d=>{
-  
 if(data.caseType === "Housing") housingCount++;
 if(data.caseType === "Enhanced Navigator") enhancedCount++;
+  
 const m = (d.eligibilityDate || "").substring(0,7);
 
 const units =
