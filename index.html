@@ -696,6 +696,19 @@ amount:Number(document.querySelectorAll(".svcAmount")[i].value||0)
 });
 
 const data={
+client,
+status:document.getElementById("status").value,
+navigator:document.getElementById("navigator").value,
+medicaid:document.getElementById("medicaid").value,
+medicaidLevel:document.getElementById("medicaidLevel").value,
+eligibilityDate:document.getElementById("eligibilityDate").value,
+followUpDate:document.getElementById("followUpDate").value,
+eligibilityUnits:Number(document.getElementById("eligibilityUnits").value||0),
+serviceUnits:Number(document.getElementById("serviceUnits").value||0),
+services
+};
+
+// ✅ ADD THIS RIGHT AFTER (NOT inside object)
 if(!data.followUpDate){
   const d = new Date();
   d.setDate(d.getDate() + 30);
