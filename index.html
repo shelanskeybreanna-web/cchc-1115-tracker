@@ -1413,7 +1413,7 @@ XLSX.writeFile(wb,"clients.xlsx");
 
 /* CLIENT LIST MONTH FILTER */
 
-window.filterClientMonth = function(){
+const eligibilityDate = row.children[5].innerText;
 
 const selectedMonth =
 document.getElementById("clientListMonth").value;
