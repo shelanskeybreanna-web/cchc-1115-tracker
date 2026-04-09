@@ -1446,7 +1446,26 @@ window.markDone = async function(id) {
     followUpDate: ""
   });
 };
+  
+window.filterMyClients = function() {
+  const userEmail = document.getElementById("roleDisplay").innerText;
 
+  document.querySelectorAll("#clientTableBody tr").forEach(row => {
+    const navigator = row.children[1].innerText;
+
+    if (userEmail.includes(navigator)) {
+      row.style.display = "";
+    } else {
+      row.style.display = "none";
+    }
+  });
+};
+
+window.showAllClients = function() {
+  document.querySelectorAll("#clientTableBody tr").forEach(row => {
+    row.style.display = "";
+  });
+};
 </script>
 </body>
 </html>
