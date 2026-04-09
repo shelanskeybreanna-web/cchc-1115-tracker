@@ -1227,7 +1227,7 @@ style="cursor:pointer; ${isOverdue ? 'background: rgba(255,0,0,0.15);' : ''}">
 <td>${data.caseType||""}</td>
 <td>${data.medicaid||""}</td>
 <td>${data.medicaidLevel||""}</td>
-<td>
+<td data-date="${data.eligibilityDate||""}">
 ${
 data.eligibilityDate
 ? new Date(data.eligibilityDate).toLocaleDateString('en-US',{
