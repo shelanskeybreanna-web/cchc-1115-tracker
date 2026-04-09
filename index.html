@@ -1194,8 +1194,10 @@ const units =
 (data.eligibilityUnits||0) +
 (data.serviceUnits||0);
 
+const isOverdue = data.followUpDate && new Date(data.followUpDate) < new Date();
+
 tableBody.innerHTML+=`
-<tr>
+<tr style="${isOverdue ? 'background: rgba(255,0,0,0.15);' : ''}">
 <td>${data.client||""}</td>
 <td>${data.navigator||""}</td>
 <td>${data.status||""}</td>
