@@ -962,11 +962,17 @@ document.getElementById("monthUnits").innerText = totalUnits;
 document.getElementById("followUpsToday").innerText = followUpsToday;
 document.getElementById("followUpsOverdue").innerText = followUpsOverdue;
 
- // URGENT BANNER
+// URGENT BANNER
 if (followUpsOverdue > 0) {
   document.getElementById("urgentBanner").style.display = "block";
-  document.getElementById("urgentBanner").innerText =
-    `⚠️ ${followUpsOverdue} overdue follow-ups need attention`;
+
+  const text =
+    followUpsOverdue === 1
+      ? "⚠️ 1 overdue follow-up needs attention"
+      : `⚠️ ${followUpsOverdue} overdue follow-ups need attention`;
+
+  document.getElementById("urgentBanner").innerText = text;
+
 } else {
   document.getElementById("urgentBanner").style.display = "none";
 }
