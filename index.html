@@ -688,6 +688,11 @@ amount:Number(document.querySelectorAll(".svcAmount")[i].value||0)
 });
 
 const data={
+if(!data.followUpDate){
+  const d = new Date();
+  d.setDate(d.getDate() + 30);
+  data.followUpDate = d.toISOString().substring(0,10);
+}
 client,
 status:document.getElementById("status").value,
 navigator:document.getElementById("navigator").value,
