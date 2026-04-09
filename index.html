@@ -1161,7 +1161,7 @@ const sortedClients = [...clientsData].sort((a,b) => {
   return new Date(a.followUpDate) - new Date(b.followUpDate);
 });
   
-clientsData.forEach(data=>{
+sortedClients.forEach(data=>{
 
 const units =
 (data.eligibilityUnits||0) +
