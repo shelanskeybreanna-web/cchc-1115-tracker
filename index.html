@@ -1417,6 +1417,20 @@ XLSX.writeFile(wb,"clients.xlsx");
 
 };
 
+window.quickUpdate = async function(id, days) {
+  const newDate = new Date();
+  newDate.setDate(newDate.getDate() + days);
+
+  await updateDoc(doc(db,"clients",id), {
+    followUpDate: newDate.toISOString().substring(0,10)
+  });
+};
+
+window.markDone = async function(id) {
+  await updateDoc(doc(db,"clients",id), {
+    followUpDate: ""
+  });
+};
 
 </script>
 </body>
