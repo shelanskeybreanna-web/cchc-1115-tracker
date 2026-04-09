@@ -1210,7 +1210,8 @@ const units =
 const isOverdue = data.followUpDate && new Date(data.followUpDate) < new Date();
 
 tableBody.innerHTML+=`
-<tr style="${isOverdue ? 'background: rgba(255,0,0,0.15);' : ''}">
+<tr onclick="window.editClient('${data.id}')"
+style="cursor:pointer; ${isOverdue ? 'background: rgba(255,0,0,0.15);' : ''}">
 <td>${data.client||""}</td>
 <td>${data.navigator||""}</td>
 <td>${data.status||""}</td>
