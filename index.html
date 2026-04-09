@@ -1224,6 +1224,12 @@ tableBody.innerHTML+=`
 <td>
 <button onclick="window.editClient('${data.id}')">Edit</button>
 <button onclick="window.deleteClient('${data.id}')">Delete</button>
+
+<br><br>
+
+<button onclick="quickUpdate('${data.id}', 7)">+7d</button>
+<button onclick="quickUpdate('${data.id}', 30)">+30d</button>
+<button onclick="markDone('${data.id}')">Done</button>
 </td>
 </tr>
 `;
