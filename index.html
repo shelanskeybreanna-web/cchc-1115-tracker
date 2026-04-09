@@ -714,17 +714,6 @@ if(!data.followUpDate){
   d.setDate(d.getDate() + 30);
   data.followUpDate = d.toISOString().substring(0,10);
 }
-client,
-status:document.getElementById("status").value,
-navigator:document.getElementById("navigator").value,
-medicaid:document.getElementById("medicaid").value,
-medicaidLevel:document.getElementById("medicaidLevel").value,
-eligibilityDate:document.getElementById("eligibilityDate").value,
-followUpDate:document.getElementById("followUpDate").value,
-eligibilityUnits:Number(document.getElementById("eligibilityUnits").value||0),
-serviceUnits:Number(document.getElementById("serviceUnits").value||0),
-services
-};
 
 if(window.editingId){
 await updateDoc(doc(db,"clients",window.editingId),data);
