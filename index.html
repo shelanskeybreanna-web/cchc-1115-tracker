@@ -1421,7 +1421,34 @@ XLSX.writeFile(wb,"clients.xlsx");
 };
 
 /* CLIENT LIST MONTH FILTER */
+/* CLIENT LIST MONTH FILTER */
 
+window.filterClientMonth = function(){
+
+const selectedMonth =
+document.getElementById("clientListMonth").value;
+
+document.querySelectorAll("#clientTableBody tr").forEach(row=>{
+
+const rawDate =
+row.children[5].getAttribute("data-date");
+
+if(!selectedMonth){
+row.style.display="";
+return;
+}
+
+if(!rawDate){
+row.style.display="none";
+return;
+}
+
+const rowMonth = rawDate.substring(0,7);
+
+row.style.display =
+rowMonth === selectedMonth ? "" : "none";
+
+});
 
 };
   
