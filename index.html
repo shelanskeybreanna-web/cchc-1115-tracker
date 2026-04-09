@@ -962,6 +962,15 @@ document.getElementById("monthUnits").innerText = totalUnits;
 document.getElementById("followUpsToday").innerText = followUpsToday;
 document.getElementById("followUpsOverdue").innerText = followUpsOverdue;
 
+ // URGENT BANNER
+if (followUpsOverdue > 0) {
+  document.getElementById("urgentBanner").style.display = "block";
+  document.getElementById("urgentBanner").innerText =
+    `⚠️ ${followUpsOverdue} overdue follow-ups need attention`;
+} else {
+  document.getElementById("urgentBanner").style.display = "none";
+}
+  
 /* BUILD FOLLOW UP ALERT LIST */
 
 let alertHTML = "";
