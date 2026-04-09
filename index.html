@@ -952,17 +952,10 @@ type: "overdue"
 if(data.caseType === "Housing") housingCount++;
 if(data.caseType === "Enhanced Navigator") enhancedCount++;
   
-const m = (d.eligibilityDate || "").substring(0,7);
+const m = (data.eligibilityDate || "").substring(0,7);
 
-const units =
-(d.eligibilityUnits||0) +
-(d.serviceUnits||0);
-
-let revenue = units * 17.5;
-
-(d.services||[]).forEach(s=>{
-revenue += Number(s.amount||0);
-});
+monthlyRevenue[m] =
+(monthlyRevenue[m]||0)+revenue;
 
 monthlyRevenue[m] =
 (monthlyRevenue[m]||0)+revenue;
