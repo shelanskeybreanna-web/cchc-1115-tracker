@@ -1238,8 +1238,14 @@ style="cursor:pointer; ${isOverdue ? 'background: rgba(255,0,0,0.15);' : ''}">
 <td>${units}</td>
 <td>${(data.services||[]).map(s=>s.name+" ($"+s.amount+")").join(", ")}</td>
 <td>
-<button onclick="window.editClient('${data.id}')">Edit</button>
-<button onclick="window.deleteClient('${data.id}')">Delete</button>
+<button onclick="event.stopPropagation(); window.editClient('${data.id}')">Edit</button>
+<button onclick="event.stopPropagation(); window.deleteClient('${data.id}')">Delete</button>
+
+<br><br>
+
+<button onclick="event.stopPropagation(); quickUpdate('${data.id}', 7)">+7d</button>
+<button onclick="event.stopPropagation(); quickUpdate('${data.id}', 30)">+30d</button>
+<button onclick="event.stopPropagation(); markDone('${data.id}')">Done</button>
 
 <br><br>
 
