@@ -1224,7 +1224,15 @@ style="cursor:pointer; ${isOverdue ? 'background: rgba(255,0,0,0.15);' : ''}">
 <td>${data.client||""}</td>
 <td>${data.navigator||""}</td>
 <td>${data.status||""}</td>
-<td>${data.caseType||""}</td>
+<td>
+  ${
+    data.caseType === "Housing"
+    ? `<span style="background:#4da3ff;padding:4px 8px;border-radius:8px;">🏠 Housing</span>`
+    : data.caseType === "Enhanced Navigator"
+    ? `<span style="background:#b084f5;padding:4px 8px;border-radius:8px;">⭐ Enhanced</span>`
+    : `<span style="background:#777;padding:4px 8px;border-radius:8px;">Follow-Up</span>`
+  }
+</td>
 <td>${data.medicaid||""}</td>
 <td>${data.medicaidLevel||""}</td>
 <td data-date="${data.eligibilityDate||""}">
