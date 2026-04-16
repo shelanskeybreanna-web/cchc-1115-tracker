@@ -1395,9 +1395,9 @@ day:'numeric'
           month: 'long',
           day: 'numeric'
         })}</div>
-        <div style="font-size:12px;color:gray;">
-          ${getRelativeLabel(data.followUpDate)}
-        </div>
+        <div style="font-size:12px;color:${urgencyColor};font-weight:600;">
+    ${getRelativeLabel(data.followUpDate)}
+    </div>
       </div>
     `
     : ""
