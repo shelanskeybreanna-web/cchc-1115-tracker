@@ -1321,7 +1321,7 @@ document.getElementById("clientListMonth").value;
 document.querySelectorAll("#clientTableBody tr").forEach(row=>{
 
 const eligibilityDate =
-row.children[5].innerText;
+row.children[5].getAttribute("data-date");
 
 if(!selectedMonth){
 row.style.display="";
