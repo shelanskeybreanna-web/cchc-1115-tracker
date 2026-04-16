@@ -254,54 +254,7 @@ overflow-y:auto;
 <input type="month" id="dashboardMonth" onchange="updateDashboard(this.value)">
 </div>
 
-<div style="
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:20px;
-margin-bottom:20px;
-">
 
-<div class="card" style="text-align:center;">
-<h4>Total Clients</h4>
-<div id="totalClients" style="font-size:26px;font-weight:bold;">0</div>
-</div>
-
-<div class="card" style="text-align:center;">
-<h4>Total Units</h4>
-<div id="totalUnits" style="font-size:26px;font-weight:bold;">0</div>
-</div>
-
-<div class="card" style="text-align:center;">
-<h4>Total Revenue</h4>
-<div id="totalRevenue" style="font-size:26px;font-weight:bold;">$0</div>
-</div>
-
-<div class="card" style="text-align:center;">
-<h4>Avg Revenue / Client</h4>
-<div id="avgRevenue" style="font-size:26px;font-weight:bold;">$0</div>
-</div>
-
-<div class="card" style="text-align:center;">
-<h4>Units This Month</h4>
-<div id="monthUnits" style="font-size:26px;font-weight:bold;">0</div>
-</div>
-
-<div class="card" style="text-align:center;">
-<h4>🏆 Top Navigator</h4>
-<div id="topNavigator" style="font-size:20px;font-weight:bold;">-</div>
-</div>
-
-<div class="card" style="text-align:center;">
-<h4>📅 Follow Ups Today</h4>
-<div id="followUpsToday" style="font-size:26px;font-weight:bold;">0</div>
-</div>
-
-<div class="card" style="text-align:center;">
-<h4>⚠️ Overdue Follow Ups</h4>
-<div id="followUpsOverdue" style="font-size:26px;font-weight:bold;">0</div>
-</div>
-  
-</div>
 
 <button onclick="exportPDF()" style="margin-bottom:15px;">
 Export Dashboard PDF
