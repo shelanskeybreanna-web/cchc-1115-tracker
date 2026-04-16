@@ -976,7 +976,11 @@ filtered.forEach(data=>{
 const units =
 (data.eligibilityUnits||0) +
 (data.serviceUnits||0);
-
+followUpTotal += data.followUpUnits || 0;
+housingTotal += data.housingUnits || 0;
+preTenancyTotal += data.preTenancyUnits || 0;
+ctsTotal += data.ctsUnits || 0;
+  
 totalUnits += units;
 
 let revenue = units * 17.5;
