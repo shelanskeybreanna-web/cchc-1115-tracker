@@ -767,6 +767,11 @@ amount:Number(document.querySelectorAll(".svcAmount")[i].value||0)
 }
 });
 
+const fUnits=Number(document.getElementById("followUpUnits").value||0);
+const hUnits=Number(document.getElementById("housingUnits").value||0);
+const pUnits=Number(document.getElementById("preTenancyUnits").value||0);
+const cUnits=Number(document.getElementById("ctsUnits").value||0);
+  
 const data={
 client,
 status:document.getElementById("status").value,
