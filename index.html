@@ -1152,7 +1152,16 @@ tableBody.innerHTML+=`
 <td>${data.status||""}</td>
 <td>${data.medicaid||""}</td>
 <td>${data.medicaidLevel||""}</td>
-<td>${data.eligibilityDate||""}</td>
+<td data-date="${data.eligibilityDate||""}">
+${
+data.eligibilityDate
+? new Date(data.eligibilityDate).toLocaleDateString('en-US',{
+month:'long',
+day:'numeric'
+})
+: ""
+}
+</td>
 <td>${data.followUpDate||""}</td>
 <td>${units}</td>
 <td>${(data.services||[]).map(s=>s.name+" ($"+s.amount+")").join(", ")}</td>
