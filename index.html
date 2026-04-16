@@ -1030,6 +1030,7 @@ if(data.followUpDate){
 
 const today = new Date().toISOString().substring(0,10);
 
+if(data.followUpDate < today){ urgencyColor = "#ff6b6b"; // red } else if(data.followUpDate === today){ urgencyColor = "#ffd93d"; // yellow } }
 if(data.followUpDate === today){
 followUpsToday++;
 
