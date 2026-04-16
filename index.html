@@ -979,7 +979,11 @@ filtered.forEach(data=>{
 
 const units =
 (data.eligibilityUnits||0) +
-(data.serviceUnits||0);
+(data.serviceUnits||0) +
+(data.followUpUnits||0) +
+(data.housingUnits||0) +
+(data.preTenancyUnits||0) +
+(data.ctsUnits||0);
 followUpTotal += data.followUpUnits || 0;
 housingTotal += data.housingUnits || 0;
 preTenancyTotal += data.preTenancyUnits || 0;
