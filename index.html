@@ -1520,6 +1520,43 @@ window.showAllClients = function() {
     row.style.display = "";
   });
 };
+
+// SEARCH
+window.searchClients = function(value){
+  document.querySelectorAll("#clientTableBody tr").forEach(row=>{
+    const text = row.innerText.toLowerCase();
+    row.style.display = text.includes(value.toLowerCase()) ? "" : "none";
+  });
+};
+
+// FILTERS
+window.showOverdue = function(){
+  const today = new Date().toISOString().substring(0,10);
+
+  document.querySelectorAll("#clientTableBody tr").forEach(row=>{
+    const date = row.children[6].getAttribute("data-date");
+    row.style.display = (date && date < today) ? "" : "none";
+  });
+};
+
+window.showToday = function(){
+  const today = new Date().toISOString().substring(0,10);
+
+  document.querySelectorAll("#clientTableBody tr").forEach(row=>{
+    const date = row.children[6].getAttribute("data-date");
+    row.style.display = (date === today) ? "" : "none";
+  });
+};
+
+window.showUpcoming = function(){
+  const today = new Date().toISOString().substring(0,10);
+
+  document.querySelectorAll("#clientTableBody tr").forEach(row=>{
+    const date = row.children[6].getAttribute("data-date");
+    row.style.display = (date && date > today) ? "" : "none";
+  });
+};
+  
 </script>
 </body>
 </html>
