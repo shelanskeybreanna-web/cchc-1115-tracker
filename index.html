@@ -201,6 +201,30 @@ overflow-y:auto;
   
 <h3>Dashboard</h3>
 
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px;">
+
+<div style="background:#1e1e1e;padding:12px;border-radius:12px;">
+<div style="font-size:12px;opacity:.7;">Clients</div>
+<div id="totalClients" style="font-size:22px;font-weight:bold;"></div>
+</div>
+
+<div style="background:#1e1e1e;padding:12px;border-radius:12px;">
+<div style="font-size:12px;opacity:.7;">Total Units</div>
+<div id="totalUnits" style="font-size:22px;font-weight:bold;"></div>
+</div>
+
+<div style="background:#1e1e1e;padding:12px;border-radius:12px;">
+<div style="font-size:12px;opacity:.7;">Revenue</div>
+<div id="totalRevenue" style="font-size:22px;font-weight:bold;"></div>
+</div>
+
+<div style="background:#1e1e1e;padding:12px;border-radius:12px;">
+<div style="font-size:12px;opacity:.7;">Overdue</div>
+<div id="followUpsOverdue" style="font-size:22px;font-weight:bold;color:#ff6b6b;"></div>
+</div>
+
+</div>
+  
 <div style="margin-bottom:15px;">
 <label style="margin-right:10px;">Select Month</label>
 <input type="month" id="dashboardMonth" onchange="updateDashboard(this.value)">
