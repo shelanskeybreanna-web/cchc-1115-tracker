@@ -479,6 +479,12 @@ Grand Total: <span id="grandTotal">$0.00</span>
 <button onclick="showOverdue()">Overdue</button>
 <button onclick="showToday()">Due Today</button>
 <button onclick="showUpcoming()">Upcoming</button>
+
+<input 
+  placeholder="Search client..." 
+  oninput="searchClients(this.value)"
+  style="padding:8px;width:250px;margin-bottom:10px;"
+>
   
 <button onclick="filterMyClients()" style="margin-bottom:10px;">
 My Clients Only
