@@ -1358,7 +1358,18 @@ const units =
 (data.serviceUnits||0);
 
 const isOverdue = data.followUpDate && new Date(data.followUpDate) < new Date();
+let urgencyColor = "#6bcf7f"; // green default
 
+if(data.followUpDate){
+  const today = new Date().toISOString().substring(0,10);
+
+  if(data.followUpDate < today){
+    urgencyColor = "#ff6b6b"; // red
+  } else if(data.followUpDate === today){
+    urgencyColor = "#ffd93d"; // yellow
+  }
+}
+  
 tableBody.innerHTML+=`
 <tr onclick="window.editClient('${data.id}')"
 style="cursor:pointer; ${isOverdue ? 'background: rgba(255,0,0,0.15);' : ''}">
