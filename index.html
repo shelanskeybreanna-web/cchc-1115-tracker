@@ -170,6 +170,32 @@ overflow-y:auto;
 #clientTable tr:hover {
   background: rgba(255,255,255,0.05);
 }
+.stat-card{
+  background: rgba(255,255,255,0.04);
+  padding:16px;
+  border-radius:14px;
+  transition: 0.2s;
+}
+
+.stat-card:hover{
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.06);
+}
+
+.stat-card .label{
+  font-size:12px;
+  opacity:0.7;
+  margin-bottom:6px;
+}
+
+.stat-card .value{
+  font-size:24px;
+  font-weight:600;
+}
+
+.stat-card.danger .value{
+  color:#ff6b6b;
+}
 </style>
 </head>
 <body>
