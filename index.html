@@ -1110,24 +1110,7 @@ if (followUpsOverdue > 0) {
   
 /* BUILD FOLLOW UP ALERT LIST */
 
-let alertHTML = "";
 
-followUpAlerts
-.sort((a,b)=>a.date.localeCompare(b.date))
-.slice(0,10)
-.forEach(a=>{
-
-const color = a.type === "overdue" ? "#ff6b6b" : "#ffd93d";
-
-alertHTML += `
-<div style="padding:6px;border-bottom:1px solid rgba(255,255,255,0.1);color:${color}">
-${a.client} — ${new Date(a.date).toLocaleDateString("en-US",{month:"short",day:"numeric"})}
-</div>
-`;
-
-});
-
-document.getElementById("followUpAlerts").innerHTML = alertHTML || "No alerts";
 
 let workHTML = "";
 
