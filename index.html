@@ -1024,13 +1024,11 @@ serviceRevenue[s.name] =
 
 totalRevenue += revenue;
 
-/* FOLLOW UP TRACKING */
-
 if(data.followUpDate){
 
   const today = new Date().toISOString().substring(0,10);
 
-  // counts
+  // TODAY
   if(data.followUpDate === today){
     followUpsToday++;
 
@@ -1041,6 +1039,7 @@ if(data.followUpDate){
     });
   }
 
+  // OVERDUE
   if(data.followUpDate < today){
     followUpsOverdue++;
 
@@ -1051,7 +1050,7 @@ if(data.followUpDate){
     });
   }
 
-  // ✅ TODAY WORK LIST (THIS WAS MISSING)
+  // TODAY WORK LIST
   if(data.followUpDate <= today){
     todayWork.push({
       client: data.client,
@@ -1060,31 +1059,6 @@ if(data.followUpDate){
   }
 
 }
-  
-if(data.followUpDate === today){
-followUpsToday++;
-
-followUpAlerts.push({
-client: data.client,
-date: data.followUpDate,
-type: "today"
-});
-
-}
-
-if(data.followUpDate < today){
-followUpsOverdue++;
-
-followUpAlerts.push({
-client: data.client,
-date: data.followUpDate,
-type: "overdue"
-});
-
-}
-
-}
-  
 /* MONTHLY REVENUE SHOULD USE ALL DATA */
 
 if(data.caseType === "Housing") housingCount++;
