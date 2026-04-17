@@ -1028,9 +1028,39 @@ totalRevenue += revenue;
 
 if(data.followUpDate){
 
-const today = new Date().toISOString().substring(0,10);
+  const today = new Date().toISOString().substring(0,10);
 
-if(data.followUpDate < today){ urgencyColor = "#ff6b6b"; // red } else if(data.followUpDate === today){ urgencyColor = "#ffd93d"; // yellow } }
+  // counts
+  if(data.followUpDate === today){
+    followUpsToday++;
+
+    followUpAlerts.push({
+      client: data.client,
+      date: data.followUpDate,
+      type: "today"
+    });
+  }
+
+  if(data.followUpDate < today){
+    followUpsOverdue++;
+
+    followUpAlerts.push({
+      client: data.client,
+      date: data.followUpDate,
+      type: "overdue"
+    });
+  }
+
+  // ✅ TODAY WORK LIST (THIS WAS MISSING)
+  if(data.followUpDate <= today){
+    todayWork.push({
+      client: data.client,
+      date: data.followUpDate
+    });
+  }
+
+}
+  
 if(data.followUpDate === today){
 followUpsToday++;
 
