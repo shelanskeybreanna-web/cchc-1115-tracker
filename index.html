@@ -1681,7 +1681,7 @@ window.showToday = function(){
   const today = new Date().toISOString().substring(0,10);
 
   document.querySelectorAll("#clientTableBody tr").forEach(row=>{
-    const date = row.children[6].getAttribute("data-date");
+    const date = row.children[7].getAttribute("data-date");
     row.style.display = (date === today) ? "" : "none";
   });
 };
@@ -1690,7 +1690,7 @@ window.showUpcoming = function(){
   const today = new Date().toISOString().substring(0,10);
 
   document.querySelectorAll("#clientTableBody tr").forEach(row=>{
-    const date = row.children[6].getAttribute("data-date");
+    const date = row.children[7].getAttribute("data-date");
     row.style.display = (date && date > today) ? "" : "none";
   });
 };
