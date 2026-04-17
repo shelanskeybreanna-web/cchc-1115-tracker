@@ -1136,6 +1136,31 @@ ${a.client} — ${new Date(a.date).toLocaleDateString("en-US",{month:"short",day
 });
 
 document.getElementById("followUpAlerts").innerHTML = alertHTML || "No alerts";
+
+let workHTML = "";
+
+todayWork
+.sort((a,b)=>a.date.localeCompare(b.date))
+.slice(0,10)
+.forEach(w=>{
+
+const today = new Date().toISOString().substring(0,10);
+
+const color =
+w.date < today
+? "#ff6b6b"
+: "#ffd93d";
+
+workHTML += `
+<div style="padding:6px;border-bottom:1px solid rgba(255,255,255,0.1);color:${color}">
+${w.client} — ${new Date(w.date).toLocaleDateString("en-US",{month:"short",day:"numeric"})}
+</div>
+`;
+
+});
+
+document.getElementById("todayWorkList").innerHTML =
+workHTML || "No follow-ups due";
   
 const topNav =
 Object.entries(navRevenue).sort((a,b)=>b[1]-a[1])[0];
