@@ -1165,9 +1165,6 @@ workHTML || "No follow-ups due";
 const topNav =
 Object.entries(navRevenue).sort((a,b)=>b[1]-a[1])[0];
 
-document.getElementById("topNavigator").innerText =
-topNav ? `${topNav[0]} ($${topNav[1].toFixed(0)})` : "-";
-
 /* NAV CHART */
 
 const navCounts = {};
