@@ -1451,8 +1451,8 @@ color:${urgencyColor};
 <td>${units}</td>
 <td>${(data.services||[]).map(s=>s.name+" ($"+s.amount+")").join(", ")}</td>
 <td>
-<button onclick="event.stopPropagation(); window.editClient('${data.id}')">Edit</button>
-<button onclick="event.stopPropagation(); window.deleteClient('${data.id}')">Delete</button>
+<button class="table-btn" onclick="event.stopPropagation(); window.editClient('${data.id}')">Edit</button>
+<button class="table-btn danger" onclick="event.stopPropagation(); window.deleteClient('${data.id}')">Delete</button>
 
 <br><br>
 
