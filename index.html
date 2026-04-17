@@ -1024,41 +1024,38 @@ serviceRevenue[s.name] =
 
 totalRevenue += revenue;
 
+/* FOLLOW UP TRACKING */
+
 if(data.followUpDate){
 
-  const today = new Date().toISOString().substring(0,10);
+const today = new Date().toISOString().substring(0,10);
 
-  // TODAY
-  if(data.followUpDate === today){
-    followUpsToday++;
+if(data.followUpDate < today){ urgencyColor = "#ff6b6b"; // red } else if(data.followUpDate === today){ urgencyColor = "#ffd93d"; // yellow } }
 
-    followUpAlerts.push({
-      client: data.client,
-      date: data.followUpDate,
-      type: "today"
-    });
-  }
+if(data.followUpDate === today){
+followUpsToday++;
 
-  // OVERDUE
-  if(data.followUpDate < today){
-    followUpsOverdue++;
-
-    followUpAlerts.push({
-      client: data.client,
-      date: data.followUpDate,
-      type: "overdue"
-    });
-  }
-
-  // TODAY WORK LIST
-  if(data.followUpDate <= today){
-    todayWork.push({
-      client: data.client,
-      date: data.followUpDate
-    });
-  }
+followUpAlerts.push({
+client: data.client,
+date: data.followUpDate,
+type: "today"
+});
 
 }
+
+if(data.followUpDate < today){
+followUpsOverdue++;
+
+followUpAlerts.push({
+client: data.client,
+date: data.followUpDate,
+type: "overdue"
+});
+
+}
+
+}
+  
 /* MONTHLY REVENUE SHOULD USE ALL DATA */
 
 if(data.caseType === "Housing") housingCount++;
